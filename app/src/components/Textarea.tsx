@@ -1,19 +1,17 @@
 import { useState } from "react";
+import axios from "axios";
 
 const Textarea = () => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
-    const baseUrl = "http://127.0.0.1:8000/";
+    const client = axios.create({
+        baseURL: "http://127.0.0.1:8000/",
+    });
 
     const summarize = () => {
-        fetch("http://127.0.0.1:8000/textsum/", {
-            method: "POST",
-            body: JSON.stringify({ text: input }),
-
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).then(res=>console.log(res.body));
+        client
+            .post("/textsum/", { text: input })
+            .then((res) => setOutput(res.data[0]["summary_text"]));
     };
 
     return (

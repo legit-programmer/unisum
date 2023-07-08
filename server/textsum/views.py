@@ -5,15 +5,9 @@ from model import getTextSummarization
 
 @api_view(['POST'])
 def activate(request):
-    
     data = dict(request.data)
     print(data['text'])
     result = getTextSummarization(data['text'])
     print(result)
     return Response(result, 200)
 
-
-
-# def activate(request):
-#     print(request.method)
-    
