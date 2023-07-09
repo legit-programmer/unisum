@@ -1,11 +1,20 @@
 import Textarea from "./components/Textarea"
+import Navbar from "./components/Navbar"
+import Filesidebar from "./components/Filesidebar"
+import Chatsidebar from "./components/Chatsidebar"
 function App() {
   
 
   return (
     <>
-    
-      <Textarea></Textarea>  </>
+      
+      <Navbar/>
+      <div className="flex">
+        <Filesidebar/>
+        <Textarea></Textarea>  
+        <Chatsidebar/>
+      </div>
+      </>
   )
 }
 

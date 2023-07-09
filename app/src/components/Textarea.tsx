@@ -16,28 +16,41 @@ const Textarea = () => {
 
     return (
         <>
-            <div className="mainTextArea">
-                <div className="intext">
-                    <h1>In: </h1>
+            <div className="mainTextArea mx-20 my-8 w-[53%]">
+                <div className="intext flex">
+                    <h1 className="font-modern text-gray-300 font-semibold text-2xl mx-6">
+                        In:{" "}
+                    </h1>
                     <textarea
+                        className=" ring-2 text-gray-600 ring-gray-400 rounded-md font-modern p-1"
                         id=""
                         cols={100}
-                        rows={20}
+                        rows={15}
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                     ></textarea>
                 </div>
-                <div className="outtext">
-                    <h1>Out: </h1>
+                <div className="outtext flex mt-5">
+                    <h1 className="font-modern text-gray-300 font-semibold text-2xl mx-3">
+                        Out:{" "}
+                    </h1>
                     <textarea
+                        className="text-gray-600 ring-2 ring-[#54D0AB] rounded-md font-modern p-1"
                         id=""
                         cols={100}
-                        rows={20}
+                        rows={8}
                         value={output}
                         onChange={(e) => setOutput(e.target.value)}
                     ></textarea>
                 </div>
-                <button onClick={summarize}>Fetch</button>
+                <div className="w-full flex justify-center">
+                    <button
+                        className=" ml-16 bg-red-300 text-white w-[20%] h-10 font-modern font-semibold rounded-lg drop-shadow-md transition-all mt-10 hover:drop-shadow-xl hover:translate-y-1"
+                        onClick={summarize}
+                    >
+                        Summarize
+                    </button>
+                </div>
             </div>
         </>
     );
