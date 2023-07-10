@@ -1,12 +1,14 @@
 import { useState } from "react";
-import axios from "axios";
+import { AxiosInstance } from "axios";
 
-const Textarea = () => {
+interface props {
+    client:AxiosInstance    
+}
+
+const Textarea = ({client}:props) => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
-    const client = axios.create({
-        baseURL: "http://127.0.0.1:8000/",
-    });
+    
 
     const summarize = () => {
         client.post("/textsum/", { text: input }).then((res) => {

@@ -1,12 +1,33 @@
-const Chatsidebar = () => {
+import { useState } from "react";
+import { AxiosInstance } from "axios";
+
+interface props {
+    client: AxiosInstance;
+}
+
+const Chatsidebar = ({ client }: props) => {
+    const [question, setQuestion] = useState("");
+
+    const postQuestion = () => {
+        client
+            .post("http://127.0.0.1:8000/imagesum/question/", {
+                question: question,
+            })
+            .then((res) => console.log(res.data));
+    };
+
     return (
         <div className=" bg-gradient-to-br from-[#54D0AB] to-white w-[32%] ">
             <input
                 type="text"
+                onChange={(e) => setQuestion(e.target.value)}
                 placeholder="Ask a question..."
                 className=" font-modern absolute bottom-6 rounded-md p-2 text-gray-700  text-sm left-[76%] w-[300px] bg-white drop-shadow-xl"
             />
-            <button className=" absolute bottom-6 bg-red-300 p-3 rounded-full left-[96%] drop-shadow-lg">
+            <button
+                onClick={postQuestion}
+                className=" absolute bottom-6 bg-red-300 p-3 rounded-full left-[96%] drop-shadow-lg"
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
