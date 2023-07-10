@@ -9,9 +9,24 @@ const Textarea = () => {
     });
 
     const summarize = () => {
-        client
-            .post("/textsum/", { text: input })
-            .then((res) => setOutput(res.data[0]["summary_text"]));
+        client.post("/textsum/", { text: input }).then((res) => {
+            displayInStyle(res.data[0]["summary_text"]);
+            
+        });
+    };
+
+    const displayInStyle = (data: string) => {
+        const arr = data.split(" ");
+        let count = 0;
+        let text = '';
+        const interval = setInterval(() => {
+            text = text + " " + arr[count];
+            setOutput(text);
+            count += 1;
+            if (count === arr.length) {
+                clearInterval(interval);
+            }
+        }, 100);
     };
 
     return (
