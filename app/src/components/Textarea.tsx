@@ -2,25 +2,27 @@ import { useState } from "react";
 import { AxiosInstance } from "axios";
 
 interface props {
-    client:AxiosInstance    
+    client: AxiosInstance;
+    loading: boolean;
+    setLoading: any;
 }
 
-const Textarea = ({client}:props) => {
+const Textarea = ({ client, loading, setLoading }: props) => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
-    
 
     const summarize = () => {
+        setLoading(true);
         client.post("/textsum/", { text: input }).then((res) => {
+            setLoading(false);
             displayInStyle(res.data[0]["summary_text"]);
-            
-        });
+        }).catch(()=>setLoading(false));
     };
 
     const displayInStyle = (data: string) => {
         const arr = data.split(" ");
         let count = 0;
-        let text = '';
+        let text = "";
         const interval = setInterval(() => {
             text = text + " " + arr[count];
             setOutput(text);
@@ -61,12 +63,14 @@ const Textarea = ({client}:props) => {
                     ></textarea>
                 </div>
                 <div className="w-full flex justify-center">
-                    <button
-                        className=" ml-16 bg-red-300 text-white w-[20%] h-10 font-modern font-semibold rounded-lg drop-shadow-md transition-all mt-10 hover:drop-shadow-xl hover:translate-y-1"
-                        onClick={summarize}
-                    >
-                        Summarize
-                    </button>
+                    {loading === false && (
+                        <button
+                            className=" ml-16 bg-red-300 text-white w-[20%] h-10 font-modern font-semibold rounded-lg drop-shadow-md transition-all mt-10 hover:drop-shadow-xl hover:translate-y-1"
+                            onClick={summarize}
+                        >
+                            Summarize
+                        </button>
+                    )}
                 </div>
             </div>
         </>
