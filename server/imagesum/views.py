@@ -7,6 +7,6 @@ from model import getAnswerFromImage
 def activate(request):
     data = dict(request.data)
     print(data['question'])
-    result = getAnswerFromImage('files/result.png', data['question'])
+    result = getAnswerFromImage(data['question'])
     print(result)
     return Response(result, 200)
