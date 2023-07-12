@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AxiosInstance } from "axios";
+import { AxiosInstance, AxiosResponse } from "axios";
 
 interface props {
     client: AxiosInstance;
@@ -7,17 +7,52 @@ interface props {
 
 const Chatsidebar = ({ client }: props) => {
     const [question, setQuestion] = useState("");
+    const [chatData, setChatData] = useState([{ q: "", a: "" }]);
+    const [answered, setAnswered] = useState(true);
+    const [answer, setAnswer] = useState("...");
+
+    const addUnansweredQuestion = () => {
+        let temp = chatData;
+        temp.push({ q: question, a: "..." });
+        setChatData(temp);
+    };
+
+    const answerUnansweredQuestion = (res: AxiosResponse<any, any>) => {
+        let temp = chatData;
+
+        temp.forEach((question, index) => {
+            index === temp.length - 1
+                ? (temp[index]["a"] = res.data[0]["answer"])
+                : console.log("hit me");
+        });
+
+        setChatData(temp);
+    };
 
     const postQuestion = () => {
+        setAnswered(false);
+        addUnansweredQuestion();
+
         client
             .post("http://127.0.0.1:8000/imagesum/question/", {
                 question: question,
             })
-            .then((res) => console.log(res.data));
+            .then((res) => {
+                answerUnansweredQuestion(res);
+                setAnswered(true);
+            });
     };
 
     return (
         <div className=" bg-gradient-to-br from-[#54D0AB] to-white w-[32%] ">
+            {chatData.map((chat: any) => {
+                return (
+                    <div>
+                        <h1>{chat["q"]}</h1>
+                        <h1>{chat["a"]}</h1>
+                    </div>
+                );
+            })}
             <input
                 type="text"
                 onChange={(e) => setQuestion(e.target.value)}
@@ -25,7 +60,7 @@ const Chatsidebar = ({ client }: props) => {
                 className=" font-modern absolute bottom-6 rounded-md p-2 text-gray-700  text-sm left-[76%] w-[300px] bg-white drop-shadow-xl"
             />
             <button
-                onClick={postQuestion}
+                onClick={answered ? postQuestion : () => {}}
                 className=" absolute bottom-6 bg-red-300 p-3 rounded-full left-[96%] drop-shadow-lg"
             >
                 <svg
