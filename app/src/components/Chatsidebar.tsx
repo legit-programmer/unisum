@@ -9,7 +9,6 @@ const Chatsidebar = ({ client }: props) => {
     const [question, setQuestion] = useState("");
     const [chatData, setChatData] = useState([{ q: "", a: "" }]);
     const [answered, setAnswered] = useState(true);
-    const [answer, setAnswer] = useState("...");
 
     const addUnansweredQuestion = () => {
         let temp = chatData;
@@ -23,7 +22,7 @@ const Chatsidebar = ({ client }: props) => {
         temp.forEach((question, index) => {
             index === temp.length - 1
                 ? (temp[index]["a"] = res.data[0]["answer"])
-                : console.log("hit me");
+                : console.log(question);
         });
 
         setChatData(temp);
@@ -47,9 +46,21 @@ const Chatsidebar = ({ client }: props) => {
         <div className=" bg-gradient-to-br from-[#54D0AB] to-white w-[32%] ">
             {chatData.map((chat: any) => {
                 return (
-                    <div>
-                        <h1>{chat["q"]}</h1>
-                        <h1>{chat["a"]}</h1>
+                    <div className="m-5 font-modern text-white">
+                        <h1>
+                            <span className=" font-bold text-red-400">
+                                {chat["q"] !== "" && "You: "}
+                            </span>
+                            {chat["q"]}
+                        </h1>
+                        <h1>
+                            <span className=" font-bold text-green-700">
+                                {chat["q"] !== "" && "Model: "}
+                            </span>
+                            {chat["a"] === "..."
+                                ? <span className="font-modern animate-pulse text-gray-800">This may take few seconds...</span>
+                                : chat["a"]}
+                        </h1>
                     </div>
                 );
             })}
@@ -61,7 +72,11 @@ const Chatsidebar = ({ client }: props) => {
             />
             <button
                 onClick={answered ? postQuestion : () => {}}
-                className=" absolute bottom-6 bg-red-300 p-3 rounded-full left-[96%] drop-shadow-lg"
+                className={
+                    answered
+                        ? "transition-all absolute bottom-6 bg-red-300 p-3 rounded-full left-[96%] drop-shadow-lg hover:bg-red-200"
+                        : "transition-all absolute bottom-6 bg-red-200 p-3 rounded-full left-[96%] drop-shadow-lg hover:bg-red-200"
+                }
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

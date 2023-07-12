@@ -65,7 +65,7 @@ const Textarea = ({ client, loading, setLoading }: props) => {
                 <div className="w-full flex justify-center">
                     {loading === false && (
                         <button
-                            className=" ml-16 bg-red-300 text-white w-[20%] h-10 font-modern font-semibold rounded-lg drop-shadow-md transition-all mt-10 hover:drop-shadow-xl hover:translate-y-1"
+                            className=" ml-16 bg-red-300 text-white w-[20%] h-10 font-modern font-semibold rounded-lg drop-shadow-md transition-all hover:bg-red-200 mt-10 hover:drop-shadow-xl hover:translate-y-1"
                             onClick={summarize}
                         >
                             Summarize
