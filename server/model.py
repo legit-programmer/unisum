@@ -7,7 +7,7 @@ def saveTextAsImage(text: str):
     count = 0
     mainText = ''
     for i in arr:
-        if count >= 5:
+        if count >= 20:
             mainText = mainText + '\n' + i
             count = 0
         mainText = mainText + ' ' + i
@@ -15,7 +15,7 @@ def saveTextAsImage(text: str):
 
     img = Image.new('RGB', (1000, 1000), (255, 255, 255))
     d1 = ImageDraw.Draw(img)
-    d1.text((1, 1), mainText, fill=(255, 0, 0))
+    d1.text((1, 1), mainText.encode('cp1252'), fill=(255, 0, 0))
     img.show()
     img.save("files/result.png")
 

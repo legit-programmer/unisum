@@ -57,9 +57,13 @@ const Chatsidebar = ({ client }: props) => {
                             <span className=" font-bold text-green-700">
                                 {chat["q"] !== "" && "Model: "}
                             </span>
-                            {chat["a"] === "..."
-                                ? <span className="font-modern animate-pulse text-gray-800">This may take few seconds...</span>
-                                : chat["a"]}
+                            {chat["a"] === "..." ? (
+                                <span className="font-modern animate-pulse text-gray-800">
+                                    This may take few seconds...
+                                </span>
+                            ) : (
+                                chat["a"]
+                            )}
                         </h1>
                     </div>
                 );
@@ -67,7 +71,7 @@ const Chatsidebar = ({ client }: props) => {
             <input
                 type="text"
                 onChange={(e) => setQuestion(e.target.value)}
-                placeholder="Ask a question..."
+                placeholder="Ask a question about the document..."
                 className=" font-modern absolute bottom-6 rounded-md p-2 text-gray-700  text-sm left-[76%] w-[300px] bg-white drop-shadow-xl"
             />
             <button
