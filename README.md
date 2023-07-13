@@ -1,3 +1,61 @@
-<p align="center">
-    <img width="300" src="https://i.ibb.co/58QS1bn/unisum.png" alt="Material Bread logo">
-</p>
+<h1 align="center">
+    Unisum - Universal Summarization Tool<br>
+    <img src="https://img.shields.io/badge/License-MIT-orange">
+</h1>
+Unisum is a versatile and powerful universal summarization tool designed to streamline the process of summarizing various types of content. Whether you need to summarize raw text, Excel files, text documents, PDFs, audio files, or videos, Unisum has got you covered. Additionally, Unisum incorporates a unique question-answering feature, allowing you to ask specific questions related to the document you uploaded.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Installation
+
+To get started with Unisum, follow these simple steps:
+
+1. Clone the repository:
+```$ git clone https://github.com/legit-programmer/unisum.git```
+2. Install the required dependencies:<br>
+```/server/$- pip3 install -r requirements.txt```<br>
+```/app/$- npm install```
+
+## Usage
+
+Unisum offers a user-friendly interface and easy-to-use functionalities. Follow the instructions below to utilize its features effectively:
+1. Launch Unisum by running the following command:<br>
+```/server/$- python3 manage.py runserver```<br>
+```/app/$- npm run dev```
+2. Access Unisum in your preferred web browser at [http://localhost:5173](http://localhost:5173)
+3. Upload the document you wish to summarize. Unisum supports a wide range of file formats, including raw text, Excel files, text documents, PDFs, audio files, and videos. (for now only raw text is supported)
+4. If desired, utilize the question-answering feature to obtain specific answers related to the document content. Simply enter your question, and Unisum will provide the most relevant response.
+
+## Features
+
+Unisum offers a comprehensive set of features that sets it apart from other summarization tools:
+
+- **Universal Summarization:** Unisum supports a wide range of file formats, including raw text, Excel files, text documents, PDFs, audio files, and videos. You can easily summarize any type of content without switching between different tools.
+
+- **Question-Answering:** Unisum incorporates an intelligent question-answering capability, allowing you to ask specific questions related to the uploaded document. Obtain accurate and relevant answers effortlessly.
+
+- **User-Friendly Interface:** The intuitive and user-friendly interface of Unisum ensures a seamless and enjoyable user experience. Easily navigate through the tool and access all its features without any hassle.
+  
+## Contributing
+
+We welcome contributions from the community to make Unisum even better. If you would like to contribute, please follow these guidelines:
+
+1. Fork the repository and create a new branch.
+
+2. Make your changes and ensure they align with the project's coding style and conventions.
+
+3. Write clear and concise commit messages.
+
+4. Test your changes thoroughly.
+
+5. Submit a pull request describing the changes you made and their purpose.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE). Feel free to use and modify the code as per the license terms.
