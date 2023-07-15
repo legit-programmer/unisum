@@ -17,7 +17,7 @@ function App() {
             <Navbar />
             <div className="flex">
                 {loading===true&&<Spinner/>}
-                <Filesidebar />
+                <Filesidebar client={client} />
                 <Textarea client={client} loading={loading} setLoading={setLoading}/>
                 <Chatsidebar client={client} />
             </div>
