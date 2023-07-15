@@ -64,7 +64,7 @@ const Filesidebar = ({ client }: props) => {
                     className={
                         fetching === true
                             ? "w-6 h-6 text-gray-300 ml-2 mt-1 animate-spin"
-                            : "w-6 h-6 text-gray-300 ml-2 mt-1"
+                            : "w-6 h-6 text-gray-300 ml-2 mt-1 opacity-0"
                     }
                 >
                     <path
