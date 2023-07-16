@@ -36,17 +36,17 @@ const Filesidebar = ({ client, files, setFiles }: props) => {
 
     const displayFile = (name: any) => {
         return (
-            <h1 
+            <div
+                className="flex transition-all m-2 text-md text-gray-500  bg-gray-100 p-3 mt-6 rounded-lg hover:cursor-pointer hover:drop-shadow-xl"
                 draggable
                 onDragEnd={(e) => {
                     e.clientX >= 200
                         ? uploadFile(getFile(name))
                         : console.log("not yet");
-                    
                 }}
             >
-                {name}
-            </h1>
+                <h1>{name}</h1>
+            </div>
         );
     };
 
