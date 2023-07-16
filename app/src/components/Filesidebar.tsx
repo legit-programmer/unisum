@@ -3,9 +3,11 @@ import { useState } from "react";
 
 interface props {
     client: AxiosInstance;
+    generateToken: (length: number) => void;
+    token: string | null;
 }
 
-const Filesidebar = ({ client }: props) => {
+const Filesidebar = ({ client, generateToken, token }: props) => {
     const [fetching, setFetching] = useState(false);
 
     const uploadFile = (file: File) => {
@@ -22,14 +24,20 @@ const Filesidebar = ({ client }: props) => {
             .then((res) => console.log(res));
     };
 
-    const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (token === "") {
+            generateToken(6);
+        }
+
         const files: any = e.target.files;
         for (let i = 0; i < files.length; i++) {
             uploadFile(files[i]);
         }
     };
 
-    const fetchFile = () => {setFetching(true)};
+    const fetchFile = () => {
+        setFetching(true);
+    };
 
     return (
         <div className=" bg-white drop-shadow-2xl w-[15%] h-[735px]">
