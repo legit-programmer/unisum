@@ -8,23 +8,10 @@ import { useState } from "react";
 
 function App() {
     const [loading, setLoading] = useState(false);
-    const [token, setToken] = useState("");
+    const [files, setFiles] = useState(null);
     const client = axios.create({
         baseURL: "http://127.0.0.1:8000/",
     });
-
-    const generateToken = (length: number) => {
-        const characters =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        let result = "";
-
-        for (let i = 0; i < length; i++) {
-            const randomIndex = Math.floor(Math.random() * characters.length);
-            result += characters.charAt(randomIndex);
-        }
-
-        setToken(result);
-    };
 
     return (
         <>
@@ -33,8 +20,8 @@ function App() {
                 {loading === true && <Spinner />}
                 <Filesidebar
                     client={client}
-                    generateToken={generateToken}
-                    token={token}
+                    files={files}
+                    setFiles={setFiles}
                 />
                 <Textarea
                     client={client}

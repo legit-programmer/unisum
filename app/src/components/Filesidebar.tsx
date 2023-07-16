@@ -1,15 +1,12 @@
 import { AxiosInstance } from "axios";
-import { useState } from "react";
 
 interface props {
     client: AxiosInstance;
-    generateToken: (length: number) => void;
-    token: string | null;
+    files: any;
+    setFiles: any;
 }
 
-const Filesidebar = ({ client, generateToken, token }: props) => {
-    const [fetching, setFetching] = useState(false);
-
+const Filesidebar = ({ client, files, setFiles }: props) => {
     const uploadFile = (file: File) => {
         client
             .post(
@@ -25,22 +22,36 @@ const Filesidebar = ({ client, generateToken, token }: props) => {
     };
 
     const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (token === "") {
-            generateToken(6);
-        }
-
         const files: any = e.target.files;
+        setFiles(files);
+    };
+
+    const getFile = (name: any) => {
         for (let i = 0; i < files.length; i++) {
-            uploadFile(files[i]);
+            if (files[i].name === name) {
+                return files[i];
+            }
         }
     };
 
-    const fetchFile = () => {
-        setFetching(true);
+    const displayFile = (name: any) => {
+        return (
+            <h1 
+                draggable
+                onDragEnd={(e) => {
+                    e.clientX >= 200
+                        ? uploadFile(getFile(name))
+                        : console.log("not yet");
+                    
+                }}
+            >
+                {name}
+            </h1>
+        );
     };
 
     return (
-        <div className=" bg-white drop-shadow-2xl w-[15%] h-[735px]">
+        <div id="hello" className=" bg-white drop-shadow-2xl w-[15%] h-[735px]">
             <input
                 type="file"
                 id="file"
@@ -56,32 +67,10 @@ const Filesidebar = ({ client, generateToken, token }: props) => {
             >
                 Add Files
             </label>
-            <div className=" flex ml-12 mt-5">
-                <button
-                    className="w-[62%] transition:all bg-red-300 rounded-md p-1 text-white hover:bg-red-200"
-                    onClick={fetchFile}
-                >
-                    Refresh
-                </button>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    className={
-                        fetching === true
-                            ? "w-6 h-6 text-gray-300 ml-2 mt-1 animate-spin"
-                            : "w-6 h-6 text-gray-300 ml-2 mt-1 opacity-0"
-                    }
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-                    />
-                </svg>
-            </div>
+            {files !== null &&
+                Array.from(files).map((file: any) => {
+                    return displayFile(file.name);
+                })}
 
             <div className="w-full  absolute bottom-0 bg-[#54D0AB]">
                 <p className="font-modern text-white text-[13px] ml-6">
