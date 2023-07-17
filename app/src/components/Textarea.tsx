@@ -1,36 +1,36 @@
-import { useState } from "react";
 import { AxiosInstance } from "axios";
 
 interface props {
     client: AxiosInstance;
     loading: boolean;
     setLoading: any;
+    input: string;
+    setInput: any;
+    output: string;
+    setOutput: any;
+    displayInStyle: any;
 }
 
-const Textarea = ({ client, loading, setLoading }: props) => {
-    const [input, setInput] = useState("");
-    const [output, setOutput] = useState("");
-
+const Textarea = ({
+    client,
+    loading,
+    setLoading,
+    input,
+    output,
+    setInput,
+    setOutput,
+    displayInStyle,
+}: props) => {
     const summarize = () => {
         setLoading(true);
-        client.post("/textsum/", { text: input }).then((res) => {
-            setLoading(false);
-            displayInStyle(res.data[0]["summary_text"]);
-        }).catch(()=>setLoading(false));
-    };
 
-    const displayInStyle = (data: string) => {
-        const arr = data.split(" ");
-        let count = 0;
-        let text = "";
-        const interval = setInterval(() => {
-            text = text + " " + arr[count];
-            setOutput(text);
-            count += 1;
-            if (count === arr.length) {
-                clearInterval(interval);
-            }
-        }, 100);
+        client
+            .post("/textsum/", { text: input })
+            .then((res) => {
+                setLoading(false);
+                displayInStyle(res.data[0]["summary_text"]);
+            })
+            .catch(() => setLoading(false));
     };
 
     return (

@@ -4,10 +4,23 @@ interface props {
     client: AxiosInstance;
     files: any;
     setFiles: any;
+    setLoading: any;
+    displayInStyle: any;
+    setInput: any;
+    setDragging: any
 }
 
-const Filesidebar = ({ client, files, setFiles }: props) => {
+const Filesidebar = ({
+    client,
+    files,
+    setFiles,
+    setLoading,
+    displayInStyle,
+    setInput,
+    setDragging
+}: props) => {
     const uploadFile = (file: File) => {
+        setLoading(true);
         client
             .post(
                 "handler/upload/",
@@ -18,7 +31,12 @@ const Filesidebar = ({ client, files, setFiles }: props) => {
                     },
                 }
             )
-            .then((res) => console.log(res));
+            .then((res) => {
+                setLoading(false);
+                setInput(res.data[1]["text"]);
+                displayInStyle(res.data[0]["summary_text"]);
+            })
+            .catch(() => setLoading(false));
     };
 
     const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,9 +55,12 @@ const Filesidebar = ({ client, files, setFiles }: props) => {
     const displayFile = (name: any) => {
         return (
             <div
-                className="flex transition-all m-2 text-md text-gray-500  bg-gray-100 p-3 mt-6 rounded-lg hover:cursor-pointer hover:drop-shadow-xl"
+                className="flex transition-all m-2 text-md text-gray-500  bg-gray-100 p-3 mt-6 rounded-lg hover:cursor-grabbing hover:drop-shadow-xl"
                 draggable
+                onClick={()=>setDragging(true)}
+                onDragStart={()=>setDragging(true)}
                 onDragEnd={(e) => {
+                    setDragging(false)
                     e.clientX >= 200
                         ? uploadFile(getFile(name))
                         : console.log("not yet");

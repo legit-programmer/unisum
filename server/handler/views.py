@@ -13,6 +13,7 @@ class FileUploadView(views.APIView):
         if serializer.is_valid():
             text = getTextFromDotTxt(request.FILES.get('file'))
             result = getTextSummarization(text)
+            result.append({'text':text})
             return Response(result, status=status.HTTP_200_OK)
         else:
             return Response('Not valid', status=status.HTTP_400_BAD_REQUEST)
