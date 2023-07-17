@@ -63,7 +63,7 @@ const Filesidebar = ({ client, files, setFiles }: props) => {
             <br />
             <label
                 htmlFor="file"
-                className=" transition-all w-[50%] items-center text-center font-modern text-sm text-red-300 m-12 p-2 rounded-md  ring-1 ring-red-300 hover:bg-red-300 hover:text-white hover:drop-shadow-lg"
+                className="hover:cursor-pointer transition-all w-[50%] items-center text-center font-modern text-sm text-red-300 m-12 p-2 rounded-md  ring-1 ring-red-300 hover:bg-red-300 hover:text-white hover:drop-shadow-lg"
             >
                 Add Files
             </label>
@@ -74,7 +74,7 @@ const Filesidebar = ({ client, files, setFiles }: props) => {
 
             <div className="w-full  absolute bottom-0 bg-[#54D0AB]">
                 <p className="font-modern text-white text-[13px] ml-6">
-                    Made by
+                    MadeBy
                     <a
                         className="underline"
                         href="https://github.com/legit-programmer/"

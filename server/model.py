@@ -20,6 +20,10 @@ def saveTextAsImage(text: str):
     img.save("files/result.png")
 
 
+def getTextFromDotTxt(file):
+    return str(file.read())[2:-2]
+
+
 def getTextSummarization(TEXT: str):
     saveTextAsImage(TEXT)
     summarizer = pipeline("summarization", model="facebook/bart-large-cnn")

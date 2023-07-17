@@ -1,8 +1,8 @@
+from model import getTextFromDotTxt, getTextSummarization
 from rest_framework import views, status
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
-from.models import File
-from.serializers import FileSerializer
+from .serializers import FileSerializer
 
 
 class FileUploadView(views.APIView):
@@ -10,9 +10,9 @@ class FileUploadView(views.APIView):
 
     def post(self, request):
         serializer = FileSerializer(data=request.data)
-
         if serializer.is_valid():
-            serializer.save()
-            return Response('Valid', status=status.HTTP_201_CREATED)
+            text = getTextFromDotTxt(request.FILES.get('file'))
+            result = getTextSummarization(text)
+            return Response(result, status=status.HTTP_200_OK)
         else:
             return Response('Not valid', status=status.HTTP_400_BAD_REQUEST)
