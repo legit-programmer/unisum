@@ -100,7 +100,7 @@ const Filesidebar = ({
                         className="underline"
                         href="https://github.com/legit-programmer/"
                     >
-                        Siddique
+                        Legit
                     </a>
                     🚀
                 </p>
