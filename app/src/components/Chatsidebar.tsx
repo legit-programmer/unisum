@@ -44,9 +44,15 @@ const Chatsidebar = ({ client }: props) => {
 
     return (
         <div className=" bg-gradient-to-br from-[#54D0AB] to-white w-[32%] ">
+            <div className="text-white mt-5 mx-4 bg-red-300 text-[12px] bg-opacity-60 rounded-xl p-4 pl-7 drop-shadow-xl">
+                            <h1 className="font-modern">
+                                The QNA model works well with documents or raw texts which contains meaningful data and not just paragraphs of text.
+                            </h1>
+                        </div>
             {chatData.map((chat: any) => {
                 return (
                     <div className="m-5 font-modern text-white">
+                        
                         <h1>
                             <span className=" font-bold text-red-400">
                                 {chat["q"] !== "" && "You: "}
