@@ -36,6 +36,13 @@ def getTextSummarization(TEXT: str):
 
 def getAnswerFromImage(_question):
     model = pipeline("document-question-answering",
-                     model="naver-clova-ix/donut-base-finetuned-docvqa")
+                    model="naver-clova-ix/donut-base-finetuned-docvqa")
     image = Image.open("files/result.png")
     return model(image=image, question=_question)
+
+
+def summarizeFromIllustration(file):
+    
+    image_to_text = pipeline(
+        "image-to-text", model="nlpconnect/vit-gpt2-image-captioning")
+    return image_to_text(file)
