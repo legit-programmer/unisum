@@ -59,6 +59,7 @@ function App() {
                     loading={loading}
                     setLoading={setLoading}
                     image={inputImage}
+                    setImage={setInputImage}
                 />
                 <Chatsidebar client={client} />
             </div>

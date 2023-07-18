@@ -10,6 +10,7 @@ interface props {
     setOutput: any;
     displayInStyle: any;
     image: File | null;
+    setImage: any;
 }
 
 const Textarea = ({
@@ -21,7 +22,8 @@ const Textarea = ({
     setInput,
     setOutput,
     displayInStyle,
-    image
+    image,
+    setImage,
 }: props) => {
     const summarize = () => {
         setLoading(true);
@@ -42,16 +44,22 @@ const Textarea = ({
                     <h1 className="font-modern text-gray-300 font-semibold text-2xl mx-6">
                         In:{" "}
                     </h1>
-                    {image===null?<textarea
-                        className=" ring-2 text-gray-600 ring-gray-400 rounded-md font-modern p-1"
-                        id=""
-                        cols={100}
-                        rows={15}
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                    ></textarea>:
-                        <img className=" max-w-[65%]" src={URL.createObjectURL(image)} alt="" />
-                    }
+                    {image === null ? (
+                        <textarea
+                            className=" ring-2 text-gray-600 ring-gray-400 rounded-md font-modern p-1"
+                            id=""
+                            cols={100}
+                            rows={15}
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                        ></textarea>
+                    ) : (
+                        <img
+                            className=" max-w-[65%]"
+                            src={URL.createObjectURL(image)}
+                            alt=""
+                        />
+                    )}
                 </div>
                 <div className="outtext flex mt-5">
                     <h1 className="font-modern text-gray-300 font-semibold text-2xl mx-3">
@@ -70,9 +78,16 @@ const Textarea = ({
                     {loading === false && (
                         <button
                             className=" ml-16 bg-red-300 text-white w-[20%] h-10 font-modern font-semibold rounded-lg drop-shadow-md transition-all hover:bg-red-200 mt-10 hover:drop-shadow-xl hover:translate-y-1"
-                            onClick={summarize}
+                            onClick={
+                                image === null
+                                    ? summarize
+                                    : () => {
+                                          setImage(null);
+                                          setOutput("");
+                                      }
+                            }
                         >
-                            Summarize
+                            {image === null ? "Summarize" : "Reset"}
                         </button>
                     )}
                 </div>
