@@ -9,6 +9,7 @@ interface props {
     output: string;
     setOutput: any;
     displayInStyle: any;
+    image: File | null;
 }
 
 const Textarea = ({
@@ -20,6 +21,7 @@ const Textarea = ({
     setInput,
     setOutput,
     displayInStyle,
+    image
 }: props) => {
     const summarize = () => {
         setLoading(true);
@@ -40,14 +42,16 @@ const Textarea = ({
                     <h1 className="font-modern text-gray-300 font-semibold text-2xl mx-6">
                         In:{" "}
                     </h1>
-                    <textarea
+                    {image===null?<textarea
                         className=" ring-2 text-gray-600 ring-gray-400 rounded-md font-modern p-1"
                         id=""
                         cols={100}
                         rows={15}
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
-                    ></textarea>
+                    ></textarea>:
+                        <img className=" max-w-[65%]" src={URL.createObjectURL(image)} alt="" />
+                    }
                 </div>
                 <div className="outtext flex mt-5">
                     <h1 className="font-modern text-gray-300 font-semibold text-2xl mx-3">

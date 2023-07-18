@@ -7,7 +7,8 @@ interface props {
     setLoading: any;
     displayInStyle: any;
     setInput: any;
-    setDragging: any
+    setDragging: any;
+    setImage: any;
 }
 
 const Filesidebar = ({
@@ -17,26 +18,53 @@ const Filesidebar = ({
     setLoading,
     displayInStyle,
     setInput,
-    setDragging
+    setDragging,
+    setImage,
 }: props) => {
     const uploadFile = (file: File) => {
         setLoading(true);
-        client
-            .post(
-                "handler/upload/",
-                { file: file },
-                {
-                    headers: {
-                        "content-type": "multipart/form-data",
-                    },
-                }
-            )
-            .then((res) => {
-                setLoading(false);
-                setInput(res.data[1]["text"]);
-                displayInStyle(res.data[0]["summary_text"]);
-            })
-            .catch(() => setLoading(false));
+        console.log(file.name);
+        if (file.name.includes(".txt")) {
+            console.log("in");
+            client
+                .post(
+                    "handler/upload/",
+                    { file: file },
+                    {
+                        headers: {
+                            "content-type": "multipart/form-data",
+                        },
+                    }
+                )
+                .then((res) => {
+                    setLoading(false);
+                    setInput(res.data[1]["text"]);
+                    displayInStyle(res.data[0]["summary_text"]);
+                })
+                .catch(() => setLoading(false));
+        }
+        const imageExts = [".png", ".jpg", ".jpeg", ".webp"];
+        for (let ext in imageExts) {
+            if (file.name.includes(imageExts[ext])) {
+                console.log("gere");
+                client
+                    .post(
+                        "imagesum/illtrees/upload/",
+                        { file: file },
+                        {
+                            headers: {
+                                "content-type": "multipart/form-data",
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        setLoading(false);
+                        setImage(file);
+                        displayInStyle(res.data["text"]);
+                    });
+                break;
+            }
+        }
     };
 
     const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,10 +85,10 @@ const Filesidebar = ({
             <div
                 className="flex transition-all m-2 text-md text-gray-500  bg-gray-100 p-3 mt-6 rounded-lg hover:cursor-grabbing hover:drop-shadow-xl"
                 draggable
-                onClick={()=>setDragging(true)}
-                onDragStart={()=>setDragging(true)}
+                onClick={() => setDragging(true)}
+                onDragStart={() => setDragging(true)}
                 onDragEnd={(e) => {
-                    setDragging(false)
+                    setDragging(false);
                     e.clientX >= 200
                         ? uploadFile(getFile(name))
                         : console.log("not yet");

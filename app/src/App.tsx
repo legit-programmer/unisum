@@ -13,6 +13,7 @@ function App() {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     const [dragging, setDragging] = useState(false);
+    const [inputImage, setInputImage] = useState(null)
 
     const client = axios.create({
         baseURL: "http://127.0.0.1:8000/",
@@ -46,6 +47,7 @@ function App() {
                     setInput={setInput}
                     displayInStyle={displayInStyle}
                     setDragging={setDragging}
+                    setImage={setInputImage}
                 />
                 <Textarea
                     input={input}
@@ -56,6 +58,7 @@ function App() {
                     client={client}
                     loading={loading}
                     setLoading={setLoading}
+                    image={inputImage}
                 />
                 <Chatsidebar client={client} />
             </div>
