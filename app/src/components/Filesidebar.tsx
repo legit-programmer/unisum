@@ -37,6 +37,7 @@ const Filesidebar = ({
                     }
                 )
                 .then((res) => {
+                    setImage(null)
                     setLoading(false);
                     setInput(res.data[1]["text"]);
                     displayInStyle(res.data[0]["summary_text"]);

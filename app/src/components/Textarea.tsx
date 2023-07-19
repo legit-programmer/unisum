@@ -55,7 +55,7 @@ const Textarea = ({
                         ></textarea>
                     ) : (
                         <img
-                            className=" max-w-[65%]"
+                            className=" max-w-[65%] rounded-lg"
                             src={URL.createObjectURL(image)}
                             alt=""
                         />
@@ -83,6 +83,7 @@ const Textarea = ({
                                     ? summarize
                                     : () => {
                                           setImage(null);
+                                          setInput(null);
                                           setOutput("");
                                       }
                             }
