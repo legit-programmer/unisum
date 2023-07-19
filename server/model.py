@@ -1,5 +1,11 @@
 from transformers import pipeline
 from PIL import Image, ImageDraw
+import easyocr
+
+def ocr(file):
+    reader = easyocr.Reader(['en'])
+    result = reader.readtext(file, detail = 0)
+    return result
 
 
 def saveTextAsImage(text: str):
