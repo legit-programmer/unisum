@@ -22,6 +22,10 @@ Unisum is a versatile and powerful universal summarization tool designed to stre
 ![image](https://github.com/legit-programmer/unisum/assets/66078215/f593682e-2764-46df-b7b2-af7398fe59a4)
 ![image](https://github.com/legit-programmer/unisum/assets/66078215/ed9a0dd3-7a38-4536-852d-d4fde126bc4a)
 
+### Image summarization
+![image](https://github.com/legit-programmer/unisum/assets/66078215/a2381884-c3da-4fa3-a4eb-60d31f6c95ea)
+
+
 ### More to come...!🚀
 
 
