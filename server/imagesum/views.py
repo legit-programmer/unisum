@@ -23,12 +23,13 @@ def upload(request):
         file = request.FILES.get('file')
         image = Image.open(file)
         image.show()
-        data = {'text':str(summarizeFromIllustration(image)[0]['generated_text'])}
-        
+        data = {'text': str(summarizeFromIllustration(image)[
+                            0]['generated_text'])}
+
         return Response(data, status=status.HTTP_200_OK)
     else:
         return Response('Nope', status.HTTP_400_BAD_REQUEST)
-    
+
 
 @api_view(['POST'])
 def textUpload(request):
@@ -39,13 +40,10 @@ def textUpload(request):
             image = Image.open(file)
         except ValueError:
             image = Image.open(file).convert('RGB')
-            print('HEY')
-            
-        # image.show()
-        imarray = asarray(image)
+
         text = ocr(image)
-        print('OCR RESULT: ' , text)
-        # data = getTextSummarization(text)
-        # print(data)
-        return Response('gooood', 200)
-    return Response('baad', status=status.HTTP_400_BAD_REQUEST)
+        print('OCR RESULT: ', text)
+        data = getTextSummarization(text)
+        print(data)
+        return Response(data, 200)
+    return Response('bad request', status=status.HTTP_400_BAD_REQUEST)
