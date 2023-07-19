@@ -39,10 +39,11 @@ def textUpload(request):
             image = Image.open(file)
         except ValueError:
             image = Image.open(file).convert('RGB')
+            print('HEY')
             
-        image.show()
+        # image.show()
         imarray = asarray(image)
-        text = ocr(imarray)
+        text = ocr(image)
         print('OCR RESULT: ' , text)
         # data = getTextSummarization(text)
         # print(data)

@@ -1,10 +1,12 @@
 from transformers import pipeline
 from PIL import Image, ImageDraw
-import easyocr
+import pytesseract
+import os
 
 def ocr(file):
-    reader = easyocr.Reader(['en'])
-    result = reader.readtext(file, detail = 0)
+    pytesseract.pytesseract.tesseract_cmd = os.path.join(os.getcwd(), 'tesseract/tesseract.exe')
+
+    result = pytesseract.image_to_string(file)
     return result
 
 
