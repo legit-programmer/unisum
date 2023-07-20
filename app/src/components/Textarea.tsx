@@ -55,7 +55,7 @@ const Textarea = ({
                         ></textarea>
                     ) : (
                         <img
-                            className=" max-w-[65%] rounded-lg"
+                            className=" max-w-full max-h-[350px] rounded-lg"
                             src={URL.createObjectURL(image)}
                             alt=""
                         />

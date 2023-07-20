@@ -1,4 +1,4 @@
-from model import getTextFromDotTxt, getTextSummarization
+from model import getTextFromDotTxt, getTextSummarization, saveTextAsImage
 from rest_framework import views, status
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -12,6 +12,7 @@ class FileUploadView(views.APIView):
         serializer = FileSerializer(data=request.data)
         if serializer.is_valid():
             text = getTextFromDotTxt(request.FILES.get('file'))
+            saveTextAsImage(text)
             result = getTextSummarization(text)
             result.append({'text':text})
             return Response(result, status=status.HTTP_200_OK)

@@ -33,7 +33,7 @@ def saveTextAsImage(text: str):
     
 
 def getTextFromDotTxt(file):
-    return str(file.read())[2:-2]
+    return str(file.read())[2:-1]
 
 
 def getTextSummarization(TEXT: str):
