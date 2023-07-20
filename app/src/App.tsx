@@ -14,8 +14,9 @@ function App() {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     const [dragging, setDragging] = useState(false);
-    const [inputImage, setInputImage] = useState(null)
+    const [inputImage, setInputImage] = useState<File | null>(null);
     const [imagePrompt, setImagePrompt] = useState(false);
+    const [imageFile, setImageFile] = useState<File | null>(null);
 
     const client = axios.create({
         baseURL: "http://127.0.0.1:8000/",
@@ -35,12 +36,59 @@ function App() {
         }, 100);
     };
 
+    const uploadToIllustrationEndpoint = () => {
+        setImagePrompt(false);
+        setLoading(true);
+        client
+            .post(
+                "imagesum/illtrees/upload/",
+                { file: imageFile },
+                {
+                    headers: {
+                        "content-type": "multipart/form-data",
+                    },
+                }
+            )
+            .then((res) => {
+                setLoading(false);
+                setInputImage(imageFile);
+                displayInStyle(res.data["text"]);
+            });
+    };
+
+    const uploadToImageDocumentEndpoint = () => {
+        setImagePrompt(false);
+        setLoading(true);
+        client
+            .post(
+                "imagesum/text/upload/",
+                { file: imageFile },
+                {
+                    headers: {
+                        "content-type": "multipart/form-data",
+                    },
+                }
+            )
+            .then((res) => {
+                setLoading(false);
+                setInputImage(imageFile);
+                displayInStyle(res.data[0]["summary_text"]);
+            });
+    };
+
     return (
         <>
-            {imagePrompt&&<ImagePrompt/>}
+            {imagePrompt && (
+                <ImagePrompt
+                    uploadToIllustrationEndpoint={uploadToIllustrationEndpoint}
+                    uploadToImageDocumentEndpoint={
+                        uploadToImageDocumentEndpoint
+                    }
+                />
+            )}
             <Navbar />
             <div className="flex">
-                {dragging&&<Drag/>}
+                {dragging && <Drag />}
                 {loading === true && <Spinner />}
                 <Filesidebar
                     client={client}
@@ -52,6 +100,7 @@ function App() {
                     setDragging={setDragging}
                     setImage={setInputImage}
                     setPrompt={setImagePrompt}
+                    setImageFile={setImageFile}
                 />
                 <Textarea
                     input={input}

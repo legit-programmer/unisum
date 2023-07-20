@@ -10,6 +10,7 @@ interface props {
     setDragging: any;
     setImage: any;
     setPrompt: any;
+    setImageFile: any;
 }
 
 const Filesidebar = ({
@@ -22,11 +23,15 @@ const Filesidebar = ({
     setDragging,
     setImage,
     setPrompt,
+    setImageFile
 }: props) => {
+    
+
     const uploadFile = (file: File) => {
-        setLoading(true);
+        // setLoading(true);
         console.log(file.name);
         if (file.name.includes(".txt")) {
+            setLoading(true);
             console.log("in");
             client
                 .post(
@@ -48,26 +53,13 @@ const Filesidebar = ({
         } else {
             const imageExts = ["png", "jpg", "jpeg", "webp"];
             const file_split = file.name.split(".");
-            const extension = file_split[file_split.length-1];
-            console.log(extension in imageExts)
+            const extension = file_split[file_split.length - 1];
+            console.log(extension in imageExts);
 
             if (imageExts.includes(extension)) {
                 console.log("gere");
-                client
-                    .post(
-                        "imagesum/illtrees/upload/",
-                        { file: file },
-                        {
-                            headers: {
-                                "content-type": "multipart/form-data",
-                            },
-                        }
-                    )
-                    .then((res) => {
-                        setLoading(false);
-                        setImage(file);
-                        displayInStyle(res.data["text"]);
-                    });
+                setPrompt(true);
+                setImageFile(file)
             }
         }
     };
