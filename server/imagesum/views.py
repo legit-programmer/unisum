@@ -22,7 +22,6 @@ def upload(request):
     if serializer.is_valid():
         file = request.FILES.get('file')
         image = Image.open(file)
-        image.show()
         data = {'text': str(summarizeFromIllustration(image)[
                             0]['generated_text'])}
 
