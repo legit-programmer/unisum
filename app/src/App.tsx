@@ -6,6 +6,7 @@ import axios from "axios";
 import Spinner from "./components/Spinner";
 import Drag from "./components/Drag";
 import { useState } from "react";
+import ImagePrompt from "./components/ImagePrompt";
 
 function App() {
     const [loading, setLoading] = useState(false);
@@ -35,6 +36,7 @@ function App() {
 
     return (
         <>
+            <ImagePrompt/>
             <Navbar />
             <div className="flex">
                 {dragging&&<Drag/>}
