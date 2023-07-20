@@ -9,6 +9,7 @@ interface props {
     setInput: any;
     setDragging: any;
     setImage: any;
+    setPrompt: any;
 }
 
 const Filesidebar = ({
@@ -20,6 +21,7 @@ const Filesidebar = ({
     setInput,
     setDragging,
     setImage,
+    setPrompt,
 }: props) => {
     const uploadFile = (file: File) => {
         setLoading(true);
@@ -37,16 +39,19 @@ const Filesidebar = ({
                     }
                 )
                 .then((res) => {
-                    setImage(null)
+                    setImage(null);
                     setLoading(false);
                     setInput(res.data[1]["text"]);
                     displayInStyle(res.data[0]["summary_text"]);
                 })
                 .catch(() => setLoading(false));
-        }
-        const imageExts = [".png", ".jpg", ".jpeg", ".webp"];
-        for (let ext in imageExts) {
-            if (file.name.includes(imageExts[ext])) {
+        } else {
+            const imageExts = ["png", "jpg", "jpeg", "webp"];
+            const file_split = file.name.split(".");
+            const extension = file_split[file_split.length-1];
+            console.log(extension in imageExts)
+
+            if (imageExts.includes(extension)) {
                 console.log("gere");
                 client
                     .post(
@@ -63,7 +68,6 @@ const Filesidebar = ({
                         setImage(file);
                         displayInStyle(res.data["text"]);
                     });
-                break;
             }
         }
     };

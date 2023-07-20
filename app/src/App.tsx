@@ -15,6 +15,7 @@ function App() {
     const [output, setOutput] = useState("");
     const [dragging, setDragging] = useState(false);
     const [inputImage, setInputImage] = useState(null)
+    const [imagePrompt, setImagePrompt] = useState(false);
 
     const client = axios.create({
         baseURL: "http://127.0.0.1:8000/",
@@ -36,7 +37,7 @@ function App() {
 
     return (
         <>
-            <ImagePrompt/>
+            {imagePrompt&&<ImagePrompt/>}
             <Navbar />
             <div className="flex">
                 {dragging&&<Drag/>}
@@ -50,6 +51,7 @@ function App() {
                     displayInStyle={displayInStyle}
                     setDragging={setDragging}
                     setImage={setInputImage}
+                    setPrompt={setImagePrompt}
                 />
                 <Textarea
                     input={input}
