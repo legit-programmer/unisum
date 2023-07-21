@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from model import getAnswerFromDocument, summarizeFromIllustration, ocr, getTextSummarization, ImageFile
+from model import getAnswerFromDocument, summarizeFromIllustration, ocr, getTextSummarization, mainDoc, ImageFile
 from handler.serializers import FileSerializer
 from rest_framework import status
 from PIL import Image
@@ -42,7 +42,7 @@ def textUpload(request):
             image = Image.open(file).convert('RGB')
 
         text = ocr(image)
-        ImageFile.file = image
+        mainDoc.doc = mainDoc.textToDoc(text)
         print('OCR RESULT: ', text)
         data = getTextSummarization(text)
         print(data)

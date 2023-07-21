@@ -28,11 +28,11 @@ class Doc:
     def textToDoc(self, text: str):
         splitter = CharacterTextSplitter()
         chunks = splitter.split_text(text)
-        docs = []
+        doc = []
         for text in chunks:
-            docs.appent(Document(text))
-        self.doc = docs
-        return docs
+            doc.append(Document(page_content=text))
+        self.doc = doc
+        return doc
 
     def setDoc(self, document):
         self.doc = document
@@ -73,8 +73,8 @@ def getTextFromDotTxt(file):
 
 def getTextSummarization(TEXT: str):
 
-    model = HuggingFaceHub(repo_id='facebook/bart-large-cnn',
-                           model_kwargs={'temperature': 0, 'min_length': 100, 'max_length': 500}, huggingfacehub_api_token=TOKEN)
+    model = HuggingFaceHub(repo_id='google/flan-t5-xxl',
+                           model_kwargs={'temperature': 1, 'min_length': 100, 'max_length': 500}, huggingfacehub_api_token=TOKEN)
     text_splitter = CharacterTextSplitter()
     chunks = text_splitter.split_text(TEXT)
     doc = []
