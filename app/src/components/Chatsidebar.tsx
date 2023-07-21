@@ -21,7 +21,7 @@ const Chatsidebar = ({ client }: props) => {
 
         temp.forEach((question, index) => {
             index === temp.length - 1
-                ? (temp[index]["a"] = res.data[0]["answer"])
+                ? (temp[index]["a"] = res.data["output_text"])
                 : console.log(question);
         });
 

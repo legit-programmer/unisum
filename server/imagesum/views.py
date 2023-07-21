@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from model import getAnswerFromImage, summarizeFromIllustration, ocr, getTextSummarization, ImageFile
+from model import getAnswerFromDocument, summarizeFromIllustration, ocr, getTextSummarization, ImageFile
 from handler.serializers import FileSerializer
 from rest_framework import status
 from PIL import Image
@@ -11,7 +11,7 @@ from PIL import Image
 def activate(request):
     data = dict(request.data)
     print(data['question'])
-    result = getAnswerFromImage(data['question'])
+    result = getAnswerFromDocument(data['question'])
     print(result)
     return Response(result, 200)
 

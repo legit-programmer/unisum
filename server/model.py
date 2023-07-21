@@ -5,6 +5,7 @@ import os
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.document_loaders import PyPDFLoader
 from langchain.chains.summarize import load_summarize_chain
+from langchain.chains.question_answering import load_qa_chain
 from langchain import HuggingFaceHub
 from langchain.docstore.document import Document
 from dotenv import load_dotenv
@@ -18,6 +19,27 @@ llm = HuggingFaceHub(repo_id='facebook/bart-large-cnn',
 class ImageFile:
     def __init__(self) -> None:
         self.file = None
+
+
+class Doc:
+    def __init__(self):
+        self.doc = None
+
+    def textToDoc(self, text: str):
+        splitter = CharacterTextSplitter()
+        chunks = splitter.split_text(text)
+        docs = []
+        for text in chunks:
+            docs.appent(Document(text))
+        self.doc = docs
+        return docs
+
+    def setDoc(self, document):
+        self.doc = document
+
+
+mainDoc = Doc()
+
 
 def ocr(file):
     pytesseract.pytesseract.tesseract_cmd = os.path.join(
@@ -58,17 +80,19 @@ def getTextSummarization(TEXT: str):
     doc = []
     for text in chunks:
         doc.append(Document(page_content=text))
-    print(doc)
-    # docs = [Document(page_content=text) for text in chunks]
+    mainDoc.setDoc(doc)
     summary_chain = load_summarize_chain(model, 'map_reduce')
     result = summary_chain.run(doc)
     return [{"summary_text": result}]
 
 
-def getAnswerFromImage(_question):
-    model = pipeline("document-question-answering",
-                     model="naver-clova-ix/donut-base-finetuned-docvqa")
-    return model(image=ImageFile.file, question=_question)
+def getAnswerFromDocument(_question):
+    model = HuggingFaceHub(repo_id='google/flan-t5-xxl',
+                           model_kwargs={'temperature': 1}, huggingfacehub_api_token=TOKEN)
+    qachain = load_qa_chain(model, chain_type="stuff")
+
+    return (qachain({"input_documents": mainDoc.doc,
+                    "question": _question}, return_only_outputs=True))
 
 
 def summarizeFromIllustration(file):
