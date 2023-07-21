@@ -75,14 +75,9 @@ def getTextSummarization(TEXT: str):
 
     model = HuggingFaceHub(repo_id='google/flan-t5-xxl',
                            model_kwargs={'temperature': 1, 'min_length': 100, 'max_length': 500}, huggingfacehub_api_token=TOKEN)
-    text_splitter = CharacterTextSplitter()
-    chunks = text_splitter.split_text(TEXT)
-    doc = []
-    for text in chunks:
-        doc.append(Document(page_content=text))
-    mainDoc.setDoc(doc)
+    mainDoc.setDoc(mainDoc.textToDoc(TEXT))
     summary_chain = load_summarize_chain(model, 'map_reduce')
-    result = summary_chain.run(doc)
+    result = summary_chain.run(mainDoc.doc)
     return [{"summary_text": result}]
 
 
