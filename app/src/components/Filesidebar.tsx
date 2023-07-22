@@ -80,7 +80,7 @@ const Filesidebar = ({
     const displayFile = (name: any) => {
         return (
             <div
-                className="flex transition-all m-2 text-md text-gray-500  bg-gray-100 p-3 mt-6 rounded-lg hover:cursor-grabbing hover:drop-shadow-xl"
+                className="flex transition-all m-2 text-md text-gray-500 dark:text-gray-200 dark:bg-slate-800 hover:translate-x-5  bg-gray-100 p-3 mt-6 rounded-lg hover:cursor-grabbing hover:drop-shadow-xl"
                 draggable
                 onClick={() => setDragging(true)}
                 onDragStart={() => setDragging(true)}
@@ -97,7 +97,7 @@ const Filesidebar = ({
     };
 
     return (
-        <div id="hello" className=" bg-white drop-shadow-2xl w-[15%] h-[735px]">
+        <div id="hello" className="dark:bg-slate-900 bg-white drop-shadow-2xl w-[15%] h-[735px]">
             <input
                 type="file"
                 id="file"
@@ -109,7 +109,7 @@ const Filesidebar = ({
             <br />
             <label
                 htmlFor="file"
-                className="hover:cursor-pointer transition-all w-[50%] items-center text-center font-modern text-sm text-red-300 m-12 p-2 rounded-md  ring-1 ring-red-300 hover:bg-red-300 hover:text-white hover:drop-shadow-lg"
+                className="hover:cursor-pointer transition-all w-[50%] items-center text-center font-modern text-sm text-red-300 dark:text-red-400 dark:ring-red-400 dark:hover:bg-red-400 dark:hover:text-white m-12 p-2 rounded-md  ring-1 ring-red-300 hover:bg-red-300 hover:text-white hover:drop-shadow-lg"
             >
                 Add Files
             </label>
@@ -118,7 +118,7 @@ const Filesidebar = ({
                     return displayFile(file.name);
                 })}
 
-            <div className="w-full  absolute bottom-0 bg-[#54D0AB]">
+            <div className="w-full  absolute bottom-0 bg-[#54D0AB] dark:bg-[#388a71]">
                 <p className="font-modern text-white text-[13px] ml-6">
                     MadeBy
                     <a

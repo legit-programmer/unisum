@@ -43,8 +43,8 @@ const Chatsidebar = ({ client }: props) => {
     };
 
     return (
-        <div className=" bg-gradient-to-br from-[#54D0AB] to-white w-[32%] ">
-            <div className="text-white mt-5 mx-4 bg-red-300 text-[12px] bg-opacity-60 rounded-xl p-4 pl-7 drop-shadow-xl">
+        <div className=" bg-gradient-to-br from-[#54D0AB] dark:from-slate-800 to-white w-[32%] ">
+            <div className="text-white mt-5 mx-4 bg-red-300 dark:bg-red-400 text-[12px] bg-opacity-60 rounded-xl p-4 pl-7 drop-shadow-xl">
                             <h1 className="font-modern">
                                 The QNA model works well with documents or raw texts which contains meaningful data and not just paragraphs of text.
                             </h1>
@@ -60,11 +60,11 @@ const Chatsidebar = ({ client }: props) => {
                             {chat["q"]}
                         </h1>
                         <h1>
-                            <span className=" font-bold text-green-700">
+                            <span className=" font-bold text-green-700 dark:text-green-500">
                                 {chat["q"] !== "" && "Model: "}
                             </span>
                             {chat["a"] === "..." ? (
-                                <span className="font-modern animate-pulse text-gray-800">
+                                <span className="font-modern animate-pulse text-gray-800 dark:text-slate-300">
                                     This may take few seconds...
                                 </span>
                             ) : (
@@ -78,14 +78,14 @@ const Chatsidebar = ({ client }: props) => {
                 type="text"
                 onChange={(e) => setQuestion(e.target.value)}
                 placeholder="Ask a question about the document..."
-                className=" font-modern absolute bottom-6 rounded-md p-2 text-gray-700  text-sm left-[76%] w-[300px] bg-white drop-shadow-xl"
+                className="dark:bg-slate-600 dark:text-white font-modern absolute bottom-6 rounded-md p-2 text-gray-700  text-sm left-[76%] w-[300px] bg-white drop-shadow-xl"
             />
             <button
                 onClick={answered ? postQuestion : () => {}}
                 className={
                     answered
-                        ? "transition-all absolute bottom-6 bg-red-300 p-3 rounded-full left-[96%] drop-shadow-lg hover:bg-red-200"
-                        : "transition-all absolute bottom-6 bg-red-200 p-3 rounded-full left-[96%] drop-shadow-lg hover:bg-red-200"
+                        ? "transition-all absolute bottom-6 dark:bg-red-400 bg-red-300 p-3 rounded-full dark:hover:bg-red-300 left-[96%] drop-shadow-lg hover:bg-red-200"
+                        : "transition-all absolute bottom-6 dark:bg-red-400 bg-red-200 p-3 rounded-full left-[96%] drop-shadow-lg"
                 }
             >
                 {answered ? (

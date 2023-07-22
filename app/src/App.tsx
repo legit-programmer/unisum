@@ -77,45 +77,47 @@ function App() {
     };
 
     return (
-        <>
-            {imagePrompt && (
-                <ImagePrompt
-                    uploadToIllustrationEndpoint={uploadToIllustrationEndpoint}
-                    uploadToImageDocumentEndpoint={
-                        uploadToImageDocumentEndpoint
-                    }
-                />
-            )}
-            <Navbar />
-            <div className="flex">
-                {dragging && <Drag />}
-                {loading === true && <Spinner />}
-                <Filesidebar
-                    client={client}
-                    files={files}
-                    setFiles={setFiles}
-                    setLoading={setLoading}
-                    setInput={setInput}
-                    displayInStyle={displayInStyle}
-                    setDragging={setDragging}
-                    setImage={setInputImage}
-                    setPrompt={setImagePrompt}
-                    setImageFile={setImageFile}
-                />
-                <Textarea
-                    input={input}
-                    output={output}
-                    setInput={setInput}
-                    setOutput={setOutput}
-                    displayInStyle={displayInStyle}
-                    client={client}
-                    loading={loading}
-                    setLoading={setLoading}
-                    image={inputImage}
-                    setImage={setInputImage}
-                />
-                <Chatsidebar client={client} />
-            </div>
+        <><div className="main dark:bg-slate-900">
+            
+                {imagePrompt && (
+                    <ImagePrompt
+                        uploadToIllustrationEndpoint={uploadToIllustrationEndpoint}
+                        uploadToImageDocumentEndpoint={
+                            uploadToImageDocumentEndpoint
+                        }
+                    />
+                )}
+                <Navbar />
+                <div className="flex">
+                    {dragging && <Drag />}
+                    {loading === true && <Spinner />}
+                    <Filesidebar
+                        client={client}
+                        files={files}
+                        setFiles={setFiles}
+                        setLoading={setLoading}
+                        setInput={setInput}
+                        displayInStyle={displayInStyle}
+                        setDragging={setDragging}
+                        setImage={setInputImage}
+                        setPrompt={setImagePrompt}
+                        setImageFile={setImageFile}
+                    />
+                    <Textarea
+                        input={input}
+                        output={output}
+                        setInput={setInput}
+                        setOutput={setOutput}
+                        displayInStyle={displayInStyle}
+                        client={client}
+                        loading={loading}
+                        setLoading={setLoading}
+                        image={inputImage}
+                        setImage={setInputImage}
+                    />
+                    <Chatsidebar client={client} />
+                </div>
+        </div>
         </>
     );
 }

@@ -41,12 +41,12 @@ const Textarea = ({
         <>
             <div className="mainTextArea mx-20 my-8 w-[53%]">
                 <div className="intext flex">
-                    <h1 className="font-modern text-gray-300 font-semibold text-2xl mx-6">
+                    <h1 className="font-modern dark:text-white text-gray-300 font-semibold text-2xl mx-6">
                         In:{" "}
                     </h1>
                     {image === null ? (
                         <textarea
-                            className=" ring-2 text-gray-600 ring-gray-400 rounded-md font-modern p-1"
+                            className=" ring-2 dark:bg-slate-900 dark:ring-white dark:text-gray-200 text-gray-600 ring-gray-400 rounded-md font-modern p-1"
                             id=""
                             cols={100}
                             rows={15}
@@ -62,11 +62,11 @@ const Textarea = ({
                     )}
                 </div>
                 <div className="outtext flex mt-5">
-                    <h1 className="font-modern text-gray-300 font-semibold text-2xl mx-3">
+                    <h1 className="font-modern dark:text-white text-gray-300 font-semibold text-2xl mx-3">
                         Out:{" "}
                     </h1>
                     <textarea
-                        className="text-gray-600 ring-2 ring-[#54D0AB] rounded-md font-modern p-1"
+                        className="dark:bg-slate-900 dark:text-gray-200 text-gray-600 ring-2 ring-[#54D0AB] rounded-md font-modern p-1"
                         id=""
                         cols={100}
                         rows={8}
@@ -77,7 +77,7 @@ const Textarea = ({
                 <div className="w-full flex justify-center">
                     {loading === false && (
                         <button
-                            className=" ml-16 bg-red-300 text-white w-[20%] h-10 font-modern font-semibold rounded-lg drop-shadow-md transition-all hover:bg-red-200 mt-10 hover:drop-shadow-xl hover:translate-y-1"
+                            className=" ml-16 dark:bg-red-400 bg-red-300 text-white w-[20%] h-10 font-modern font-semibold rounded-lg drop-shadow-md transition-all hover:bg-red-200 mt-10 hover:drop-shadow-xl hover:translate-y-1"
                             onClick={
                                 image === null
                                     ? summarize
