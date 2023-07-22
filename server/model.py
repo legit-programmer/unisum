@@ -78,8 +78,7 @@ def getTextSummarization(TEXT: str):
     mainDoc.setDoc(mainDoc.textToDoc(TEXT))
     summary_chain = load_summarize_chain(model, 'map_reduce')
     result = summary_chain.run(mainDoc.doc)
-    result = result.replace(
-        'Write a concise summary of the following: "Ives got his start as a printer in Ithaca, New York""', '')
+    # result = result.find()
     return [{"summary_text": result}]
 
 
