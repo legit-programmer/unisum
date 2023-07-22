@@ -33,7 +33,7 @@ function App() {
             if (count === arr.length) {
                 clearInterval(interval);
             }
-        }, 100);
+        }, 50);
     };
 
     const uploadToIllustrationEndpoint = () => {

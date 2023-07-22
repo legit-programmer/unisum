@@ -73,11 +73,13 @@ def getTextFromDotTxt(file):
 
 def getTextSummarization(TEXT: str):
 
-    model = HuggingFaceHub(repo_id='google/flan-t5-xxl',
+    model = HuggingFaceHub(repo_id='facebook/bart-large-cnn',
                            model_kwargs={'temperature': 1, 'min_length': 100, 'max_length': 500}, huggingfacehub_api_token=TOKEN)
     mainDoc.setDoc(mainDoc.textToDoc(TEXT))
     summary_chain = load_summarize_chain(model, 'map_reduce')
     result = summary_chain.run(mainDoc.doc)
+    result = result.replace(
+        'Write a concise summary of the following: "Ives got his start as a printer in Ithaca, New York""', '')
     return [{"summary_text": result}]
 
 
