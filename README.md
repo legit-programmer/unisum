@@ -51,7 +51,7 @@ Unisum offers a user-friendly interface and easy-to-use functionalities. Follow 
 ```/server/$- python3 manage.py runserver```<br>
 ```/app/$- npm run dev```
 2. Access Unisum in your preferred web browser at [http://localhost:5173](http://localhost:5173)
-3. Upload the document you wish to summarize. Unisum supports a wide range of file formats, including raw text, Excel files, text documents, PDFs, audio files, and videos. (for now only raw text is supported)
+3. Upload the document you wish to summarize. Unisum supports a wide range of file formats, including raw text, Excel files, text documents, PDFs, audio files, and videos. (for now only raw text, text documents and images are supported)
 4. If desired, utilize the question-answering feature to obtain specific answers related to the document content. Simply enter your question, and Unisum will provide the most relevant response.
 
 ## Features✨
