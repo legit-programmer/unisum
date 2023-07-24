@@ -21,5 +21,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("textsum/", include('textsum.urls')),
     path("imagesum/", include('imagesum.urls')),
-    path("handler/", include('handler.urls'))
+    path("handler/", include('handler.urls')),
+    path('pdfsum/', include('pdfsum.urls'))
 ]

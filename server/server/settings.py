@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "textsum",
     "imagesum",
+    "pdfsum",
     "rest_framework",
     "corsheaders",
     "handler"
