@@ -3,11 +3,11 @@ from PIL import Image, ImageDraw
 import pytesseract
 import os
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.document_loaders import PyPDFLoader
 from langchain.chains.summarize import load_summarize_chain
 from langchain.chains.question_answering import load_qa_chain
 from langchain import HuggingFaceHub
 from langchain.docstore.document import Document
+import PyPDF2
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -96,3 +96,13 @@ def summarizeFromIllustration(file):
     image_to_text = pipeline(
         "image-to-text", model="nlpconnect/vit-gpt2-image-captioning")
     return image_to_text(file)
+
+
+def summarizeFromPdf(file):
+    pdfObj = file.open()
+    reader = PyPDF2.PdfReader(pdfObj)
+    pdftext = ''
+    for p in range(len(reader.pages)):
+        page = reader.pages[p]
+        pdftext = pdftext+page.extract_text()
+    

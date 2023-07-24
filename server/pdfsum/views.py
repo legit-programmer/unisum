@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from handler.serializers import FileSerializer
 from rest_framework import status
-
+from model import summarizeFromPdf
 
 @api_view(['POST'])
 def upload(request):
@@ -11,5 +11,6 @@ def upload(request):
     if serializer.is_valid():
         file = request.FILES.get('file')
         print(file.name + ' recieved')
+        summarizeFromPdf(file)
         return Response('File recieved', status=status.HTTP_200_OK)
     return Response('Bad request', status=status.HTTP_400_BAD_REQUEST)
