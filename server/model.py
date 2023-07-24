@@ -14,6 +14,8 @@ load_dotenv()
 TOKEN = os.environ.get('TOKEN')
 llm = HuggingFaceHub(repo_id='facebook/bart-large-cnn',
                      model_kwargs={'temperature': 2}, huggingfacehub_api_token=TOKEN)
+GOOGLE_FLAN_MODEL = HuggingFaceHub(repo_id='google/flan-t5-xxl',
+                           model_kwargs={'temperature': 1}, huggingfacehub_api_token=TOKEN)
 
 
 class ImageFile:
@@ -83,9 +85,7 @@ def getTextSummarization(TEXT: str):
 
 
 def getAnswerFromDocument(_question):
-    model = HuggingFaceHub(repo_id='google/flan-t5-xxl',
-                           model_kwargs={'temperature': 1}, huggingfacehub_api_token=TOKEN)
-    qachain = load_qa_chain(model, chain_type="stuff")
+    qachain = load_qa_chain(GOOGLE_FLAN_MODEL, chain_type="stuff")
 
     return (qachain({"input_documents": mainDoc.doc,
                     "question": _question}, return_only_outputs=True))
@@ -106,3 +106,4 @@ def summarizeFromPdf(file):
         page = reader.pages[p]
         pdftext = pdftext+page.extract_text()
     
+    model  = GOOGLE_FLAN_MODEL
