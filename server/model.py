@@ -12,10 +12,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 TOKEN = os.environ.get('TOKEN')
-llm = HuggingFaceHub(repo_id='facebook/bart-large-cnn',
-                     model_kwargs={'temperature': 2}, huggingfacehub_api_token=TOKEN)
 GOOGLE_FLAN_MODEL = HuggingFaceHub(repo_id='google/flan-t5-xxl',
-                           model_kwargs={'temperature': 1}, huggingfacehub_api_token=TOKEN)
+                                   model_kwargs={'temperature': 1, 'min_length': 100}, huggingfacehub_api_token=TOKEN)
+FACEBOOK_BART_MODEL = HuggingFaceHub(repo_id='facebook/bart-large-cnn',
+                                     model_kwargs={'temperature': 0, 'min_length': 100, 'max_length': 500}, huggingfacehub_api_token=TOKEN)
 
 
 class ImageFile:
@@ -74,11 +74,8 @@ def getTextFromDotTxt(file):
 
 
 def getTextSummarization(TEXT: str):
-
-    model = HuggingFaceHub(repo_id='facebook/bart-large-cnn',
-                           model_kwargs={'temperature': 1, 'min_length': 100, 'max_length': 500}, huggingfacehub_api_token=TOKEN)
     mainDoc.setDoc(mainDoc.textToDoc(TEXT))
-    summary_chain = load_summarize_chain(model, 'map_reduce')
+    summary_chain = load_summarize_chain(FACEBOOK_BART_MODEL, 'map_reduce')
     result = summary_chain.run(mainDoc.doc)
     # result = result.find()
     return [{"summary_text": result}]
@@ -86,10 +83,11 @@ def getTextSummarization(TEXT: str):
 
 def getAnswerFromDocument(_question):
     qachain = load_qa_chain(GOOGLE_FLAN_MODEL, chain_type="stuff")
-
-    return (qachain({"input_documents": mainDoc.doc,
+    try:
+        return (qachain({"input_documents": mainDoc.doc,
                     "question": _question}, return_only_outputs=True))
-
+    except ValueError:
+        return {'output_text':'Too many tokens😢...'}
 
 def summarizeFromIllustration(file):
 
@@ -105,5 +103,7 @@ def summarizeFromPdf(file):
     for p in range(len(reader.pages)):
         page = reader.pages[p]
         pdftext = pdftext+page.extract_text()
-    
-    model  = GOOGLE_FLAN_MODEL
+    mainDoc.doc = mainDoc.textToDoc(pdftext)
+    chain = load_summarize_chain(HuggingFaceHub(repo_id='sshleifer/distilbart-cnn-12-6',
+                                                model_kwargs={'temperature': 0, 'min_length': 100, 'max_length': 500}, huggingfacehub_api_token=TOKEN))
+    print(chain.run(mainDoc.doc))
