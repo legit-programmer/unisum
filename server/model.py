@@ -7,6 +7,7 @@ from langchain.chains.summarize import load_summarize_chain
 from langchain.chains.question_answering import load_qa_chain
 from langchain import HuggingFaceHub
 from langchain.docstore.document import Document
+from langchain import PromptTemplate
 import PyPDF2
 from dotenv import load_dotenv
 load_dotenv()
@@ -16,6 +17,9 @@ GOOGLE_FLAN_MODEL = HuggingFaceHub(repo_id='google/flan-t5-xxl',
                                    model_kwargs={'temperature': 1, 'min_length': 100}, huggingfacehub_api_token=TOKEN)
 FACEBOOK_BART_MODEL = HuggingFaceHub(repo_id='facebook/bart-large-cnn',
                                      model_kwargs={'temperature': 0, 'min_length': 100, 'max_length': 500}, huggingfacehub_api_token=TOKEN)
+SUMMARY_PROMPT = """
+{text}
+"""
 
 
 class ImageFile:
@@ -85,9 +89,10 @@ def getAnswerFromDocument(_question):
     qachain = load_qa_chain(GOOGLE_FLAN_MODEL, chain_type="stuff")
     try:
         return (qachain({"input_documents": mainDoc.doc,
-                    "question": _question}, return_only_outputs=True))
+                         "question": _question}, return_only_outputs=True))
     except ValueError:
-        return {'output_text':'Too many tokens😢...'}
+        return {'output_text': 'Too many tokens😢...'}
+
 
 def summarizeFromIllustration(file):
 
@@ -104,6 +109,6 @@ def summarizeFromPdf(file):
         page = reader.pages[p]
         pdftext = pdftext+page.extract_text()
     mainDoc.doc = mainDoc.textToDoc(pdftext)
-    chain = load_summarize_chain(HuggingFaceHub(repo_id='sshleifer/distilbart-cnn-12-6',
-                                                model_kwargs={'temperature': 0, 'min_length': 100, 'max_length': 500}, huggingfacehub_api_token=TOKEN))
+    prompt = PromptTemplate(template=SUMMARY_PROMPT, input_variables=['text'])
+    chain = load_summarize_chain(FACEBOOK_BART_MODEL, prompt=prompt)
     print(chain.run(mainDoc.doc))
