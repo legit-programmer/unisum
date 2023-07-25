@@ -11,6 +11,6 @@ def upload(request):
     if serializer.is_valid():
         file = request.FILES.get('file')
         print(file.name + ' recieved')
-        summarizeFromPdf(file)
-        return Response('File recieved', status=status.HTTP_200_OK)
+        data = summarizeFromPdf(file)
+        return Response(data, status=status.HTTP_200_OK)
     return Response('Bad request', status=status.HTTP_400_BAD_REQUEST)

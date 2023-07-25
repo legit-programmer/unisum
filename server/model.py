@@ -111,4 +111,4 @@ def summarizeFromPdf(file):
     mainDoc.doc = mainDoc.textToDoc(pdftext)
     prompt = PromptTemplate(template=SUMMARY_PROMPT, input_variables=['text'])
     chain = load_summarize_chain(FACEBOOK_BART_MODEL, prompt=prompt)
-    print(chain.run(mainDoc.doc))
+    return [pdftext, chain.run(mainDoc.doc)]

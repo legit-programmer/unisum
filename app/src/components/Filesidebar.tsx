@@ -23,10 +23,8 @@ const Filesidebar = ({
     setDragging,
     setImage,
     setPrompt,
-    setImageFile
+    setImageFile,
 }: props) => {
-    
-
     const uploadFile = (file: File) => {
         // setLoading(true);
         console.log(file.name);
@@ -59,7 +57,22 @@ const Filesidebar = ({
             if (imageExts.includes(extension)) {
                 console.log("gere");
                 setPrompt(true);
-                setImageFile(file)
+                setImageFile(file);
+            } else if (extension.includes("pdf")) {
+                setLoading(true);
+                client.post(
+                    "pdfsum/upload/",
+                    { file: file },
+                    {
+                        headers: {
+                            "content-type": "multipart/form-data",
+                        },
+                    }
+                ).then((res)=>{
+                    setLoading(false);
+                    displayInStyle(res.data[1])
+                    setInput(res.data[0])
+                });
             }
         }
     };
@@ -97,12 +110,15 @@ const Filesidebar = ({
     };
 
     return (
-        <div id="hello" className="dark:bg-slate-900 bg-white drop-shadow-2xl w-[15%] h-[735px]">
+        <div
+            id="hello"
+            className="dark:bg-slate-900 bg-white drop-shadow-2xl w-[15%] h-[735px]"
+        >
             <input
                 type="file"
                 id="file"
                 className=" text-xs w-8 opacity-0"
-                accept=".xlsx, .xls, .jpeg, .jpg, .png, .txt, .docx, .doc"
+                accept=".xlsx, .xls, .jpeg, .jpg, .png, .txt, .docx, .doc, .pdf"
                 onChange={(e) => handleFile(e)}
                 multiple
             />
