@@ -31,7 +31,7 @@ const Chatsidebar = ({ client }: props) => {
     const postQuestion = () => {
         setAnswered(false);
         addUnansweredQuestion();
-
+        
         client
             .post("http://127.0.0.1:8000/imagesum/question/", {
                 question: question,
@@ -39,6 +39,7 @@ const Chatsidebar = ({ client }: props) => {
             .then((res) => {
                 answerUnansweredQuestion(res);
                 setAnswered(true);
+                document.getElementById('chatarea')?.scrollTo(0, 9999)
             });
     };
 
@@ -49,31 +50,33 @@ const Chatsidebar = ({ client }: props) => {
                                 The QNA model works well with documents or raw texts which contains meaningful data and not just paragraphs of text.
                             </h1>
                         </div>
-            {chatData.map((chat: any) => {
-                return (
-                    <div className="m-5 font-modern text-white">
-                        
-                        <h1>
-                            <span className=" font-bold text-red-400">
-                                {chat["q"] !== "" && "You: "}
-                            </span>
-                            {chat["q"]}
-                        </h1>
-                        <h1>
-                            <span className=" font-bold text-green-700 dark:text-green-500">
-                                {chat["q"] !== "" && "Model: "}
-                            </span>
-                            {chat["a"] === "..." ? (
-                                <span className="font-modern animate-pulse text-gray-800 dark:text-slate-300">
-                                    This may take few seconds...
+            <div id="chatarea" className="chatarea overflow-auto h-[72%] fixed">
+                {chatData.map((chat: any) => {
+                    return (
+                        <div className="m-5 font-modern text-white">
+                
+                            <h1>
+                                <span className=" font-bold text-red-400">
+                                    {chat["q"] !== "" && "You: "}
                                 </span>
-                            ) : (
-                                chat["a"]
-                            )}
-                        </h1>
-                    </div>
-                );
-            })}
+                                {chat["q"]}
+                            </h1>
+                            <h1>
+                                <span className=" font-bold text-green-700 dark:text-green-500">
+                                    {chat["q"] !== "" && "Model: "}
+                                </span>
+                                {chat["a"] === "..." ? (
+                                    <span className="font-modern animate-pulse text-gray-800 dark:text-slate-300">
+                                        This may take few seconds...
+                                    </span>
+                                ) : (
+                                    chat["a"]
+                                )}
+                            </h1>
+                        </div>
+                    );
+                })}
+            </div>
             <input
                 type="text"
                 onChange={(e) => setQuestion(e.target.value)}
