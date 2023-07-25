@@ -43,6 +43,7 @@ To get started with Unisum, follow these simple steps:
 2. Install the required dependencies:<br>
 ```/server/$- pip3 install -r requirements.txt```<br>
 ```/app/$- npm install```
+3. Setup ```.env``` file in ```/server/``` by adding ```TOKEN = <YOUR HUGGING FACE HUB TOKEN HERE>```. [Get your token here](https://huggingface.co/)
 
 ## Usage💻
 
@@ -51,7 +52,7 @@ Unisum offers a user-friendly interface and easy-to-use functionalities. Follow 
 ```/server/$- python3 manage.py runserver```<br>
 ```/app/$- npm run dev```
 2. Access Unisum in your preferred web browser at [http://localhost:5173](http://localhost:5173)
-3. Upload the document you wish to summarize. Unisum supports a wide range of file formats, including raw text, Excel files, text documents, PDFs, audio files, and videos. (for now only raw text, text documents and images are supported)
+3. Upload the document you wish to summarize. Unisum supports a wide range of file formats, including raw text, Excel files, text documents, PDFs, audio files, and videos. [see currently supported documents](#features)
 4. If desired, utilize the question-answering feature to obtain specific answers related to the document content. Simply enter your question, and Unisum will provide the most relevant response.
 
 ## Features✨
@@ -63,7 +64,18 @@ Unisum offers a comprehensive set of features that sets it apart from other summ
 - **Question-Answering:** Unisum incorporates an intelligent question-answering capability, allowing you to ask specific questions related to the uploaded document. Obtain accurate and relevant answers effortlessly.
 
 - **User-Friendly Interface:** The intuitive and user-friendly interface of Unisum ensures a seamless and enjoyable user experience. Easily navigate through the tool and access all its features without any hassle.
-  
+
+#### Currently Supported Documents:
+| Document Type | Summary | Qna |
+| ------------- | ------ | --- |
+| Raw text | ✔ | ✔ |
+| Text document | ✔ | ✔ |
+| Image | ✔ | ✔ |
+| Pdf | ✔ | ✔ |
+| Excel file | ❌ | ❌ |
+| Audio | ❌ | ❌ |
+| Video | ❌ | ❌ |
+
 ## Contributing💖
 
 We welcome contributions from the community to make Unisum even better. If you would like to contribute, please follow these guidelines:
