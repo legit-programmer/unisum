@@ -13,22 +13,22 @@ const ImagePrompt = ({uploadToIllustrationEndpoint, uploadToImageDocumentEndpoin
                     </h1>
                 </div>
                 <div className="choice flex justify-around">
-                    <button onClick={uploadToIllustrationEndpoint} className="transition-all w-28  hover:drop-shadow-xl hover:w-32 ring-gray-300 rounded-md p-4">
+                    <button onClick={uploadToIllustrationEndpoint} className="transition-all w-28 hover:font-normal font-thin  hover:drop-shadow-xl hover:w-32 ring-gray-300 rounded-md p-4">
                         <img
                             src="https://github-production-user-asset-6210df.s3.amazonaws.com/66078215/254833827-dc6ca1a7-7bde-4dea-a936-4d8a389032e6.png"
                             alt=""
                         />
-                        <h3 className="font-modern font-thin text-gray-600 dark:text-white">
+                        <h3 className="font-modern  text-gray-600 dark:text-white">
                             Illustration
                         </h3>
                     </button>
-                    <button onClick={uploadToImageDocumentEndpoint} className="w-28  transition-all hover:drop-shadow-xl hover:w-32 ring-gray-300 rounded-md p-4">
+                    <button onClick={uploadToImageDocumentEndpoint} className="w-28 hover:font-normal font-thin  transition-all hover:drop-shadow-xl hover:w-32 ring-gray-300 rounded-md p-4">
                         <img
-                            className="rounded-full"
-                            src="https://github-production-user-asset-6210df.s3.amazonaws.com/66078215/254838694-3e78a181-a8f3-42a4-9923-7fca093d19b9.png"
+                            
+                            src="https://icon-library.com/images/text-file-icon/text-file-icon-5.jpg"
                             alt=""
                         />
-                        <h3 className="font-modern font-thin text-gray-600 dark:text-white">
+                        <h3 className="font-modern text-gray-600 dark:text-white">
                             Document
                         </h3>
                     </button>

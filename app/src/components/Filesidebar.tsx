@@ -69,9 +69,10 @@ const Filesidebar = ({
                         },
                     }
                 ).then((res)=>{
+                    setImage(null)
+                    setInput(res.data[0])
                     setLoading(false);
                     displayInStyle(res.data[1])
-                    setInput(res.data[0])
                 });
             }
         }
@@ -112,7 +113,7 @@ const Filesidebar = ({
     return (
         <div
             id="hello"
-            className="dark:bg-slate-900 bg-white drop-shadow-2xl w-[15%] h-[735px]"
+            className="dark:bg-slate-900 bg-white drop-shadow-2xl w-[15%] h-[735px] max-w-[15%]"
         >
             <input
                 type="file"

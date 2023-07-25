@@ -50,7 +50,7 @@ const Chatsidebar = ({ client }: props) => {
                                 The QNA model works well with documents or raw texts which contains meaningful data and not just paragraphs of text.
                             </h1>
                         </div>
-            <div id="chatarea" className="chatarea overflow-auto h-[72%] fixed">
+            <div id="chatarea" className="chatarea overflow-auto h-[72%] fixed w-[24.5%]">
                 {chatData.map((chat: any) => {
                     return (
                         <div className="m-5 font-modern text-white">
