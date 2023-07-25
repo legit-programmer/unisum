@@ -79,7 +79,7 @@ def getTextFromDotTxt(file):
 
 def getTextSummarization(TEXT: str):
     mainDoc.setDoc(mainDoc.textToDoc(TEXT))
-    summary_chain = load_summarize_chain(FACEBOOK_BART_MODEL, 'map_reduce')
+    summary_chain = load_summarize_chain(FACEBOOK_BART_MODEL, prompt=PromptTemplate(template=SUMMARY_PROMPT, input_variables=['text']))
     result = summary_chain.run(mainDoc.doc)
     # result = result.find()
     return [{"summary_text": result}]
