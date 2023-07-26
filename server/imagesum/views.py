@@ -22,7 +22,7 @@ def activateTheSecond(request):
     print(data['question'])
     result = answerFromIllustration(data['question'])
     print(result)
-    return Response(result, 200)
+    return Response({'output_text':result}, 200)
 
 
 @api_view(['POST'])

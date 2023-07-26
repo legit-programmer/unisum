@@ -11,6 +11,7 @@ interface props {
     setImage: any;
     setPrompt: any;
     setImageFile: any;
+    setQuestionPath: any;
 }
 
 const Filesidebar = ({
@@ -24,12 +25,14 @@ const Filesidebar = ({
     setImage,
     setPrompt,
     setImageFile,
+    setQuestionPath,
 }: props) => {
     const uploadFile = (file: File) => {
         // setLoading(true);
         console.log(file.name);
         if (file.name.includes(".txt")) {
             setLoading(true);
+            setQuestionPath("imagesum/question/");
             console.log("in");
             client
                 .post(
@@ -60,20 +63,23 @@ const Filesidebar = ({
                 setImageFile(file);
             } else if (extension.includes("pdf")) {
                 setLoading(true);
-                client.post(
-                    "pdfsum/upload/",
-                    { file: file },
-                    {
-                        headers: {
-                            "content-type": "multipart/form-data",
-                        },
-                    }
-                ).then((res)=>{
-                    setImage(null)
-                    setInput(res.data[0])
-                    setLoading(false);
-                    displayInStyle(res.data[1])
-                });
+                setQuestionPath("imagesum/question/");
+                client
+                    .post(
+                        "pdfsum/upload/",
+                        { file: file },
+                        {
+                            headers: {
+                                "content-type": "multipart/form-data",
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        setImage(null);
+                        setInput(res.data[0]);
+                        setLoading(false);
+                        displayInStyle(res.data[1]);
+                    });
             }
         }
     };

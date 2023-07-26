@@ -3,9 +3,10 @@ import { AxiosInstance, AxiosResponse } from "axios";
 
 interface props {
     client: AxiosInstance;
+    questionPath: string;
 }
 
-const Chatsidebar = ({ client }: props) => {
+const Chatsidebar = ({ client, questionPath }: props) => {
     const [question, setQuestion] = useState("");
     const [chatData, setChatData] = useState([{ q: "", a: "" }]);
     const [answered, setAnswered] = useState(true);
@@ -31,30 +32,33 @@ const Chatsidebar = ({ client }: props) => {
     const postQuestion = () => {
         setAnswered(false);
         addUnansweredQuestion();
-        
+
         client
-            .post("http://127.0.0.1:8000/imagesum/question/", {
+            .post(questionPath, {
                 question: question,
             })
             .then((res) => {
                 answerUnansweredQuestion(res);
                 setAnswered(true);
-                document.getElementById('chatarea')?.scrollTo(0, 9999)
+                document.getElementById("chatarea")?.scrollTo(0, 9999);
             });
     };
 
     return (
         <div className=" bg-gradient-to-br from-[#54D0AB] dark:from-slate-800 to-white w-[32%] ">
             <div className="text-white mt-5 mx-4 bg-red-300 dark:bg-red-400 text-[12px] bg-opacity-60 rounded-xl p-4 pl-7 drop-shadow-xl">
-                            <h1 className="font-modern">
-                                The QNA model works well with documents or raw texts which contains meaningful data and not just paragraphs of text.
-                            </h1>
-                        </div>
-            <div id="chatarea" className="chatarea overflow-auto h-[72%] fixed w-[24.5%]">
+                <h1 className="font-modern">
+                    The QNA model works well with documents or raw texts which
+                    contains meaningful data and not just paragraphs of text.
+                </h1>
+            </div>
+            <div
+                id="chatarea"
+                className="chatarea overflow-auto h-[72%] fixed w-[24.5%]"
+            >
                 {chatData.map((chat: any) => {
                     return (
                         <div className="m-5 font-modern text-white">
-                
                             <h1>
                                 <span className=" font-bold text-red-400">
                                     {chat["q"] !== "" && "You: "}

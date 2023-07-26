@@ -11,6 +11,7 @@ interface props {
     displayInStyle: any;
     image: File | null;
     setImage: any;
+    setQuestionPath: any;
 }
 
 const Textarea = ({
@@ -24,6 +25,7 @@ const Textarea = ({
     displayInStyle,
     image,
     setImage,
+    setQuestionPath
 }: props) => {
     const summarize = () => {
         setLoading(true);
@@ -80,7 +82,7 @@ const Textarea = ({
                             className=" ml-16 dark:bg-red-400 bg-red-300 text-white w-[20%] h-10 font-modern font-semibold rounded-lg drop-shadow-md transition-all hover:bg-red-200 mt-10 hover:drop-shadow-xl hover:translate-y-1"
                             onClick={
                                 image === null
-                                    ? summarize
+                                    ? ()=>{summarize();setQuestionPath("imagesum/question/");}
                                     : () => {
                                           setImage(null);
                                           setInput(null);

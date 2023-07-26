@@ -17,6 +17,7 @@ function App() {
     const [inputImage, setInputImage] = useState<File | null>(null);
     const [imagePrompt, setImagePrompt] = useState(false);
     const [imageFile, setImageFile] = useState<File | null>(null);
+    const [questionPath, setQuestionPath] = useState("imagesum/question/");
 
     const client = axios.create({
         baseURL: "http://127.0.0.1:8000/",
@@ -77,14 +78,17 @@ function App() {
     };
 
     return (
-        <><div className="main dark:bg-slate-900">
-            
+        <>
+            <div className="main dark:bg-slate-900">
                 {imagePrompt && (
                     <ImagePrompt
-                        uploadToIllustrationEndpoint={uploadToIllustrationEndpoint}
+                        uploadToIllustrationEndpoint={
+                            uploadToIllustrationEndpoint
+                        }
                         uploadToImageDocumentEndpoint={
                             uploadToImageDocumentEndpoint
                         }
+                        setQuestionPath={setQuestionPath}
                     />
                 )}
                 <Navbar />
@@ -102,6 +106,7 @@ function App() {
                         setImage={setInputImage}
                         setPrompt={setImagePrompt}
                         setImageFile={setImageFile}
+                        setQuestionPath={setQuestionPath}
                     />
                     <Textarea
                         input={input}
@@ -114,10 +119,11 @@ function App() {
                         setLoading={setLoading}
                         image={inputImage}
                         setImage={setInputImage}
+                        setQuestionPath={setQuestionPath}
                     />
-                    <Chatsidebar client={client} />
+                    <Chatsidebar client={client} questionPath={questionPath} />
                 </div>
-        </div>
+            </div>
         </>
     );
 }
