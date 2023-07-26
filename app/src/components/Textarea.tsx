@@ -48,7 +48,7 @@ const Textarea = ({
                     </h1>
                     {image === null ? (
                         <textarea
-                            className=" ring-2 dark:bg-slate-900 dark:ring-white dark:text-gray-200 text-gray-600 ring-gray-400 rounded-md font-modern p-1"
+                            className="inputText ring-2 dark:bg-slate-900 dark:ring-white dark:text-gray-200 text-gray-600 ring-gray-400 rounded-md font-modern p-1"
                             id=""
                             cols={100}
                             rows={15}
@@ -68,7 +68,7 @@ const Textarea = ({
                         Out:{" "}
                     </h1>
                     <textarea
-                        className="dark:bg-slate-900 dark:text-gray-200 text-gray-600 ring-2 ring-[#54D0AB] rounded-md font-modern p-1"
+                        className="outputText dark:bg-slate-900 dark:text-gray-200 text-gray-600 ring-2 ring-[#54D0AB] rounded-md font-modern p-1"
                         id=""
                         cols={100}
                         rows={8}
@@ -79,16 +79,17 @@ const Textarea = ({
                 <div className="w-full flex justify-center">
                     {loading === false && (
                         <button
-                            className=" ml-16 dark:bg-red-400 bg-red-300 text-white w-[20%] h-10 font-modern font-semibold rounded-lg drop-shadow-md transition-all hover:bg-red-200 mt-10 hover:drop-shadow-xl hover:translate-y-1"
+                            className=" ml-16 hover:cursor-pointer dark:bg-red-400 bg-red-300 text-white w-[20%] h-10 font-modern font-semibold rounded-lg drop-shadow-md transition-all hover:bg-red-200 mt-10 hover:drop-shadow-xl hover:translate-y-1"
                             onClick={
                                 image === null
                                     ? ()=>{summarize();setQuestionPath("imagesum/question/");}
                                     : () => {
                                           setImage(null);
-                                          setInput(null);
+                                          setInput("");
                                           setOutput("");
                                       }
                             }
+                            disabled={input.length===0}
                         >
                             {image === null ? "Summarize" : "Reset"}
                         </button>
