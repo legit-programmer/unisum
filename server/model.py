@@ -8,6 +8,7 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain import HuggingFaceHub
 from langchain.docstore.document import Document
 from langchain import PromptTemplate
+from transformers import ViltProcessor, ViltForQuestionAnswering
 import PyPDF2
 from dotenv import load_dotenv
 load_dotenv()
@@ -79,7 +80,8 @@ def getTextFromDotTxt(file):
 
 def getTextSummarization(TEXT: str):
     mainDoc.setDoc(mainDoc.textToDoc(TEXT))
-    summary_chain = load_summarize_chain(FACEBOOK_BART_MODEL, prompt=PromptTemplate(template=SUMMARY_PROMPT, input_variables=['text']))
+    summary_chain = load_summarize_chain(FACEBOOK_BART_MODEL, prompt=PromptTemplate(
+        template=SUMMARY_PROMPT, input_variables=['text']))
     result = summary_chain.run(mainDoc.doc)
     # result = result.find()
     return [{"summary_text": result}]
@@ -99,6 +101,20 @@ def summarizeFromIllustration(file):
     image_to_text = pipeline(
         "image-to-text", model="nlpconnect/vit-gpt2-image-captioning")
     return image_to_text(file)
+
+
+def answerFromIllustration(question):
+    text = question
+
+    processor = ViltProcessor.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
+    model = ViltForQuestionAnswering.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
+    encoding = processor(ImageFile.file, text, return_tensors="pt")
+
+    outputs = model(**encoding)
+    logits = outputs.logits
+    idx = logits.argmax(-1).item()
+    answer = model.config.id2label[idx]
+    return answer
 
 
 def summarizeFromPdf(file):

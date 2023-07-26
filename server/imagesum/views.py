@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from model import getAnswerFromDocument, summarizeFromIllustration, ocr, getTextSummarization, mainDoc, ImageFile
+from model import getAnswerFromDocument, summarizeFromIllustration, ocr, getTextSummarization, mainDoc, ImageFile, answerFromIllustration
 from handler.serializers import FileSerializer
 from rest_framework import status
 from PIL import Image
@@ -12,6 +12,15 @@ def activate(request):
     data = dict(request.data)
     print(data['question'])
     result = getAnswerFromDocument(data['question'])
+    print(result)
+    return Response(result, 200)
+
+
+@api_view(['POST'])
+def activateTheSecond(request):
+    data = dict(request.data)
+    print(data['question'])
+    result = answerFromIllustration(data['question'])
     print(result)
     return Response(result, 200)
 
