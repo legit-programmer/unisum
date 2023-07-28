@@ -9,6 +9,7 @@ from langchain import HuggingFaceHub
 from langchain.docstore.document import Document
 from langchain import PromptTemplate
 from transformers import ViltProcessor, ViltForQuestionAnswering
+from huggingsound import SpeechRecognitionModel
 import PyPDF2
 from dotenv import load_dotenv
 load_dotenv()
@@ -128,3 +129,12 @@ def summarizeFromPdf(file):
     prompt = PromptTemplate(template=SUMMARY_PROMPT, input_variables=['text'])
     chain = load_summarize_chain(FACEBOOK_BART_MODEL, prompt=prompt)
     return [pdftext, chain.run(mainDoc.doc)]
+
+def getTranscription(audioFile):
+    
+
+    model = SpeechRecognitionModel("jonatasgrosman/wav2vec2-large-xlsr-53-english")
+    audio_paths = ["/path/to/file.mp3", "/path/to/another_file.wav"]
+
+    transcriptions = model.transcribe(audio_paths)
+    print(transcriptions)

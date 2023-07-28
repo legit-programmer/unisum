@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "textsum",
     "imagesum",
     "pdfsum",
+    "audiosum",
     "rest_framework",
     "corsheaders",
     "handler"
