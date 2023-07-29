@@ -80,6 +80,24 @@ const Filesidebar = ({
                         setLoading(false);
                         displayInStyle(res.data[1]);
                     });
+            } else if (extension.includes("xlsx")) {
+                setLoading(true);
+                setQuestionPath("imagesum/upload/");
+                client
+                    .post(
+                        "excelsum/upload/",
+                        { file: file },
+                        {
+                            headers: {
+                                "content-type": "multipart/form-data",
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        setLoading(false);
+                        setInput(file.name);
+                        displayInStyle(res.data["summary_text"]);
+                    });
             }
         }
     };

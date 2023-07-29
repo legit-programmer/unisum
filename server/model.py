@@ -144,17 +144,11 @@ def getExcelSummary(filepath, filename):
         df = reader.parse(sheet)
         cols = df.columns
         size = df.size
-        temp += f"""
-        
-        Name: {sheet}
+        temp += f"""\tSheetName: {sheet}
         Size: {size} ({len(cols)} columns x {size//len(cols)} rows)
         Columns : {[i for i in cols]}
 """
     reader.close()
-    summary = f"""
-    Name: {filename}
-    Total sheets: {sheets}({len(sheets)})
-    {temp}
-"""
+    summary = f"FileName: {filename}\nTotal sheets: {sheets}({len(sheets)})\n\n{temp}"
     os.remove(filepath)
     return summary
