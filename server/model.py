@@ -135,15 +135,26 @@ def summarizeFromPdf(file):
 
 
 def getExcelSummary(filepath, filename):
-    df = pd.read_excel(filepath)
-    columns = [i for i in df.columns]
-    totalCols = len(columns)
+    reader = pd.ExcelFile(filepath)
+    sheets = reader.sheet_names
+    print(sheets)
 
+    temp = ""
+    for sheet in sheets:
+        df = reader.parse(sheet)
+        cols = df.columns
+        size = df.size
+        temp += f"""
+        
+        Name: {sheet}
+        Size: {size} ({len(cols)} columns x {size//len(cols)} rows)
+        Columns : {[i for i in cols]}
+"""
+    reader.close()
     summary = f"""
     Name: {filename}
-    Size: {df.size} ({totalCols} columns x {df.size//totalCols} rows)
-    Total No. Of columns: {totalCols}
-    Columns: {columns}
+    Total sheets: {sheets}({len(sheets)})
+    {temp}
 """
     os.remove(filepath)
     return summary
