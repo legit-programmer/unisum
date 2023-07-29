@@ -131,14 +131,3 @@ def summarizeFromPdf(file):
     prompt = PromptTemplate(template=SUMMARY_PROMPT, input_variables=['text'])
     chain = load_summarize_chain(FACEBOOK_BART_MODEL, prompt=prompt)
     return [pdftext, chain.run(mainDoc.doc)]
-
-
-def getTranscription(audioFilePath):
-
-    model = SpeechRecognitionModel(
-        "jonatasgrosman/wav2vec2-large-xlsr-53-english")
-    audio_paths = [audioFilePath]
-
-    transcriptions = model.transcribe(audio_paths)
-    print(transcriptions)
-    os.remove(audioFilePath)
