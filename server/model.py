@@ -11,6 +11,7 @@ from langchain import PromptTemplate
 from transformers import ViltProcessor, ViltForQuestionAnswering
 from huggingsound import SpeechRecognitionModel
 import PyPDF2
+import pandas as pd
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -131,3 +132,18 @@ def summarizeFromPdf(file):
     prompt = PromptTemplate(template=SUMMARY_PROMPT, input_variables=['text'])
     chain = load_summarize_chain(FACEBOOK_BART_MODEL, prompt=prompt)
     return [pdftext, chain.run(mainDoc.doc)]
+
+
+def getExcelSummary(filepath, filename):
+    df = pd.read_excel(filepath)
+    columns = [i for i in df.columns]
+    totalCols = len(columns)
+
+    summary = f"""
+    Name: {filename}
+    Size: {df.size} ({totalCols} columns x {df.size//totalCols} rows)
+    Total No. Of columns: {totalCols}
+    Columns: {columns}
+"""
+    os.remove(filepath)
+    return summary
