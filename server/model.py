@@ -107,8 +107,10 @@ def summarizeFromIllustration(file):
 def answerFromIllustration(question):
     text = question
 
-    processor = ViltProcessor.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
-    model = ViltForQuestionAnswering.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
+    processor = ViltProcessor.from_pretrained(
+        "dandelin/vilt-b32-finetuned-vqa")
+    model = ViltForQuestionAnswering.from_pretrained(
+        "dandelin/vilt-b32-finetuned-vqa")
     encoding = processor(ImageFile.file, text, return_tensors="pt")
 
     outputs = model(**encoding)
@@ -130,11 +132,13 @@ def summarizeFromPdf(file):
     chain = load_summarize_chain(FACEBOOK_BART_MODEL, prompt=prompt)
     return [pdftext, chain.run(mainDoc.doc)]
 
-def getTranscription(audioFile):
-    
 
-    model = SpeechRecognitionModel("jonatasgrosman/wav2vec2-large-xlsr-53-english")
-    audio_paths = ["/path/to/file.mp3", "/path/to/another_file.wav"]
+def getTranscription(audioFilePath):
+
+    model = SpeechRecognitionModel(
+        "jonatasgrosman/wav2vec2-large-xlsr-53-english")
+    audio_paths = [audioFilePath]
 
     transcriptions = model.transcribe(audio_paths)
     print(transcriptions)
+    os.remove(audioFilePath)
