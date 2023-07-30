@@ -23,5 +23,4 @@ urlpatterns = [
     path("imagesum/", include('imagesum.urls')),
     path("handler/", include('handler.urls')),
     path('pdfsum/', include('pdfsum.urls')),
-    path('excelsum/', include('excelsum.urls'))
 ]

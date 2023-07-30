@@ -9,7 +9,6 @@ from langchain import HuggingFaceHub
 from langchain.docstore.document import Document
 from langchain import PromptTemplate
 from transformers import ViltProcessor, ViltForQuestionAnswering
-from huggingsound import SpeechRecognitionModel
 import PyPDF2
 import pandas as pd
 from dotenv import load_dotenv
@@ -134,21 +133,4 @@ def summarizeFromPdf(file):
     return [pdftext, chain.run(mainDoc.doc)]
 
 
-def getExcelSummary(filepath, filename):
-    reader = pd.ExcelFile(filepath)
-    sheets = reader.sheet_names
-    print(sheets)
-
-    temp = ""
-    for sheet in sheets:
-        df = reader.parse(sheet)
-        cols = df.columns
-        size = df.size
-        temp += f"""\tSheetName: {sheet}
-        Size: {size} ({len(cols)} columns x {size//len(cols)} rows)
-        Columns : {[i for i in cols]}
-"""
-    reader.close()
-    summary = f"FileName: {filename}\nTotal sheets: {sheets}({len(sheets)})\n\n{temp}"
-    os.remove(filepath)
-    return summary
+    
