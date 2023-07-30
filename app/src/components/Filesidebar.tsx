@@ -61,6 +61,25 @@ const Filesidebar = ({
                 console.log("gere");
                 setPrompt(true);
                 setImageFile(file);
+            } else if (extension.includes("pdf")) {
+                setLoading(true);
+                setQuestionPath("imagesum/question/");
+                client
+                    .post(
+                        "pdfsum/upload/",
+                        { file: file },
+                        {
+                            headers: {
+                                "content-type": "multipart/form-data",
+                            },
+                        }
+                    )
+                    .then((res) => {
+                        setImage(null);
+                        setInput(res.data[0]);
+                        setLoading(false);
+                        displayInStyle(res.data[1]);
+                    });
             } 
         }
     };
