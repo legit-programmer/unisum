@@ -4,7 +4,7 @@
     <img src="https://img.shields.io/badge/Status-Development-blue">
     <img src="https://img.shields.io/badge/Contributions-Open-green">
 </h1>
-Unisum is a versatile and powerful universal summarization tool designed to streamline the process of summarizing various types of content. Whether you need to summarize raw text, Excel files, text documents, or PDFs, Unisum has got you covered. Additionally, Unisum incorporates a unique question-answering feature, allowing you to ask specific questions related to the document you uploaded.
+Unisum is a versatile and powerful universal summarization tool designed to streamline the process of summarizing various types of content. Whether you need to summarize raw text, text documents, images, or PDFs, Unisum has got you covered. Additionally, Unisum incorporates a unique question-answering feature, allowing you to ask specific questions related to the document you uploaded.
 
 ## Table of Contents
 - [Screenshots](#screenshots)
@@ -52,14 +52,14 @@ Unisum offers a user-friendly interface and easy-to-use functionalities. Follow 
 ```/server/$- python3 manage.py runserver```<br>
 ```/app/$- npm run dev```
 2. Access Unisum in your preferred web browser at [http://localhost:5173](http://localhost:5173)
-3. Upload the document you wish to summarize. Unisum supports a wide range of file formats, including raw text, Excel files, text documents  and PDFs. [see currently supported documents](#features)
+3. Upload the document you wish to summarize. Unisum supports a wide range of file formats, including raw text, text documents  and PDFs. [see currently supported documents](#features)
 4. If desired, utilize the question-answering feature to obtain specific answers related to the document content. Simply enter your question, and Unisum will provide the most relevant response.
 
 ## Features✨
 
 Unisum offers a comprehensive set of features that sets it apart from other summarization tools:
 
-- **Universal Summarization:** Unisum supports a wide range of file formats, including raw text, Excel files, text documents, and PDFs. You can easily summarize any type of content without switching between different tools.
+- **Universal Summarization:** Unisum supports a wide range of file formats, including raw text, text documents, and PDFs. You can easily summarize any type of content without switching between different tools.
 
 - **Question-Answering:** Unisum incorporates an intelligent question-answering capability, allowing you to ask specific questions related to the uploaded document. Obtain accurate and relevant answers effortlessly.
 
@@ -72,7 +72,7 @@ Unisum offers a comprehensive set of features that sets it apart from other summ
 | Text document | ✔ | ✔ |
 | Image | ✔ | ✔ |
 | Pdf | ✔ | ✔ |
-| Excel file | ❌ | ❌ |
+
 
 ## Contributing💖
 
