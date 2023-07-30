@@ -61,44 +61,7 @@ const Filesidebar = ({
                 console.log("gere");
                 setPrompt(true);
                 setImageFile(file);
-            } else if (extension.includes("pdf")) {
-                setLoading(true);
-                setQuestionPath("imagesum/question/");
-                client
-                    .post(
-                        "pdfsum/upload/",
-                        { file: file },
-                        {
-                            headers: {
-                                "content-type": "multipart/form-data",
-                            },
-                        }
-                    )
-                    .then((res) => {
-                        setImage(null);
-                        setInput(res.data[0]);
-                        setLoading(false);
-                        displayInStyle(res.data[1]);
-                    });
-            } else if (extension.includes("xlsx")) {
-                setLoading(true);
-                setQuestionPath("imagesum/upload/");
-                client
-                    .post(
-                        "excelsum/upload/",
-                        { file: file },
-                        {
-                            headers: {
-                                "content-type": "multipart/form-data",
-                            },
-                        }
-                    )
-                    .then((res) => {
-                        setLoading(false);
-                        setInput(file.name);
-                        displayInStyle(res.data["summary_text"]);
-                    });
-            }
+            } 
         }
     };
 
@@ -143,7 +106,7 @@ const Filesidebar = ({
                 type="file"
                 id="file"
                 className=" text-xs w-8 opacity-0"
-                accept=".xlsx, .xls, .jpeg, .jpg, .png, .txt, .docx, .doc, .pdf"
+                accept=".jpeg, .jpg, .png, .txt, .docx, .doc, .pdf"
                 onChange={(e) => handleFile(e)}
                 multiple
             />
