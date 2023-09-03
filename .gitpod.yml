@@ -1,0 +1,28 @@
+image: gitpod/workspace-full-vnc
+
+# Commands that will run on workspace start
+tasks:
+    - name: Setup for server
+      before: cd server
+      init: pip install -r requirements.txt
+      command: python manage.py runserver
+
+    - name: Setup for frontend
+      before: cd app
+      init: npm install
+      command: npm run dev
+
+# Ports to expose on workspace startup
+ports:
+    - port: 8000
+      name: Server
+      description: Server Preview
+      visibility: public
+      protocol: http
+    
+    - port: 5713
+      onOpen: open-preview
+      name: Server
+      description: Server Preview
+      visibility: private
+      protocol: http

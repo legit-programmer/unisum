@@ -20,7 +20,8 @@ function App() {
     const [questionPath, setQuestionPath] = useState("imagesum/question/");
 
     const client = axios.create({
-        baseURL: "http://127.0.0.1:8000/",
+        withCredentials:true,
+        baseURL: window.location.href.includes('gitpod')?window.location.href.replace('5173', '8000'):"http://127.0.0.1:8000/",
     });
 
     const displayInStyle = (data: string) => {

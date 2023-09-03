@@ -26,11 +26,13 @@ SECRET_KEY = "django-insecure-%v3@h)$%k*!hhw%l$q=my@6qjgkwf2jhkkfrjv-4%+cs75(w9h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ALLOW_CREDENTIALS = True
 
+# CORS_ALLOWED_WHITELIST = ['https://5173-debug-legitprogrammer-unisum-3b0k9snzx5m.ws-us104.gitpod.io']
 # Application definition
 
 INSTALLED_APPS = [
