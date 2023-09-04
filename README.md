@@ -8,6 +8,7 @@ Unisum is a versatile and powerful universal summarization tool designed to stre
 
 ## Table of Contents
 - [Screenshots](#screenshots)
+- [Quickrun](#quickrun)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
@@ -32,6 +33,38 @@ Unisum is a versatile and powerful universal summarization tool designed to stre
 
 
 
+## Quickrun⚡
+**Instructions**
+1. After creating your workspace, you will be redirected to an editor, open the terminal and choose server bash
+   
+    ![image](https://github.com/legit-programmer/unisum/assets/66078215/af6a9ebb-42b4-4ca1-b444-94cfc13c3817)
+3. Following prompt comes up, enter 'y' to install the correct python version
+   
+    ```
+    pyenv: /workspace/.pyenv_mirror/fakeroot/versions/3.10.12 already exists
+    continue with installation? (y/N) y
+    ```
+5. Wait for few minutes till the server initializes and fires up
+   
+   ```
+    Watching for file changes with StatReloader
+    Performing system checks...
+    
+    System check identified no issues (0 silenced).
+    September 04, 2023 - 13:18:08
+    Django version 4.2.3, using settings 'server.settings'
+    Starting development server at http://127.0.0.1:8000/
+    Quit the server with CONTROL-C.
+   ```
+7. Now switch to frontend bash, and ctrl + click on the link
+   
+  ```
+  VITE v4.4.2  ready in 528 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h to show help
+  ```
 
 
 ## Installation🛠
