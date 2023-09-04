@@ -24,5 +24,5 @@ ports:
       onOpen: open-preview
       name: Server
       description: Server Preview
-      visibility: private
+      visibility: public
       protocol: http
