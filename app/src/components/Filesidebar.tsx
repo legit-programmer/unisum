@@ -119,7 +119,7 @@ const Filesidebar = ({
     return (
         <div
             id="hello"
-            className="dark:bg-slate-900 bg-white drop-shadow-2xl w-[15%] h-[735px] max-w-[15%]"
+            className="dark:bg-slate-900 bg-white drop-shadow-2xl w-[15%] h-[92..75vh] max-w-[25%]"
         >
             <input
                 type="file"
@@ -132,7 +132,7 @@ const Filesidebar = ({
             <br />
             <label
                 htmlFor="file"
-                className="hover:cursor-pointer transition-all w-[50%] items-center text-center font-modern text-sm text-red-300 dark:text-red-400 dark:ring-red-400 dark:hover:bg-red-400 dark:hover:text-white m-12 p-2 rounded-md  ring-1 ring-red-300 hover:bg-red-300 hover:text-white hover:drop-shadow-lg"
+                className="hover:cursor-pointer transition-all w-[100%] items-center text-center font-modern text-sm text-red-300 dark:text-red-400 dark:ring-red-400 dark:hover:bg-red-400 dark:hover:text-white ml-11 p-2 rounded-md  ring-1 ring-red-300 hover:bg-red-300 hover:text-white hover:drop-shadow-lg"
             >
                 Add Files
             </label>

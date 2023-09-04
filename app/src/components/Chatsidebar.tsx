@@ -10,6 +10,7 @@ const Chatsidebar = ({ client, questionPath }: props) => {
     const [question, setQuestion] = useState("");
     const [chatData, setChatData] = useState([{ q: "", a: "" }]);
     const [answered, setAnswered] = useState(true);
+    const [empty, setEmpty] = useState(true);
 
     const addUnansweredQuestion = () => {
         let temp = chatData;
@@ -30,6 +31,7 @@ const Chatsidebar = ({ client, questionPath }: props) => {
     };
 
     const postQuestion = () => {
+        setEmpty(false);
         setAnswered(false);
         addUnansweredQuestion();
 
@@ -46,16 +48,34 @@ const Chatsidebar = ({ client, questionPath }: props) => {
 
     return (
         <div className=" bg-gradient-to-br from-[#54D0AB] dark:from-slate-800 to-white w-[32%] ">
-            <div className="text-white mt-5 mx-4 bg-red-300 dark:bg-red-400 text-[12px] bg-opacity-60 rounded-xl p-4 pl-7 drop-shadow-xl">
-                <h1 className="font-modern">
-                    The QNA model works well with documents or raw texts which
-                    contains meaningful data and not just paragraphs of text.
-                </h1>
-            </div>
             <div
                 id="chatarea"
                 className="chatarea overflow-auto h-[72%] fixed w-[24.5%]"
             >
+                {empty && (
+                    <div className="font-modern dark:text-white text-gray-700 w-full h-full flex justify-center items-center opacity-25">
+                        <div>
+                            <div className="logo flex items-center justify-center">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="0.5"
+                                    stroke="currentColor"
+                                    className="w-32 h-32 "
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
+                                    />
+                                </svg>
+                            </div>
+
+                            <h1 className="flex justify-center my-5  text-3xl">No chats</h1>
+                        </div>
+                    </div>
+                )}
                 {chatData.map((chat: any) => {
                     return (
                         <div className="m-5 font-modern text-white">
