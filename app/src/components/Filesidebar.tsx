@@ -119,7 +119,7 @@ const Filesidebar = ({
     return (
         <div
             id="hello"
-            className="dark:bg-slate-900 bg-white drop-shadow-2xl w-[15%] h-[92..75vh] max-w-[25%]"
+            className="dark:bg-slate-900 bg-white drop-shadow-2xl w-[15%] h-[92.75vh] max-w-[25%]"
         >
             <input
                 type="file"

@@ -50,7 +50,7 @@ const Chatsidebar = ({ client, questionPath }: props) => {
         <div className=" bg-gradient-to-br from-[#54D0AB] dark:from-slate-800 to-white w-[32%] ">
             <div
                 id="chatarea"
-                className="chatarea overflow-auto h-[72%] fixed w-[24.5%]"
+                className="chatarea overflow-auto h-[85%] fixed w-[24.5%]"
             >
                 {empty && (
                     <div className="font-modern dark:text-white text-gray-700 w-full h-full flex justify-center items-center opacity-25">
