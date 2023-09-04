@@ -2,16 +2,12 @@ image: gitpod/workspace-full-vnc
 
 # Commands that will run on workspace start
 tasks:
-    - name: Setup python version
-      init: pyenv install 3.10
-      command: pyenv local 3.10
-    
-    - name: Setup for server
-      before: cd server
+    - name: Server
+      before: pyenv install 3.10 && pyenv local 3.10
       init: pip install -r requirements.txt
-      command: python manage.py runserver
+      command: python server/manage.py runserver 
 
-    - name: Setup for frontend
+    - name: Frontend
       before: cd app
       init: npm install
       command: npm run dev
