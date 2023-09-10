@@ -12,6 +12,8 @@ from transformers import ViltProcessor, ViltForQuestionAnswering
 import PyPDF2
 import pandas as pd
 from dotenv import load_dotenv
+import platform
+
 load_dotenv()
 
 TOKEN = os.environ.get('TOKEN')
@@ -50,8 +52,10 @@ mainDoc = Doc()
 
 
 def ocr(file):
-    pytesseract.pytesseract.tesseract_cmd = os.path.join(
-        os.getcwd(), 'tesseract/tesseract.exe')
+    if platform.uname().system=='Windows':
+        pytesseract.pytesseract.tesseract_cmd = os.path.join(
+            os.getcwd(), 'tesseract/tesseract.exe')
+
 
     result = pytesseract.image_to_string(file)
     return result
