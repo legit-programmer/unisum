@@ -3,7 +3,7 @@ image: gitpod/workspace-full-vnc
 # Commands that will run on workspace start
 tasks:
     - name: Server
-      before: pyenv install 3.10.12 && pyenv local 3.10.12 && apt install tesseract-ocr -y
+      before: pyenv install 3.10.12 && pyenv local 3.10.12 && sudo apt install tesseract-ocr -y
       init: pip install -r server/requirements.txt
       command: python server/manage.py runserver 
 
