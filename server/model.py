@@ -25,7 +25,7 @@ SUMMARY_PROMPT = """
 {text}
 """
 
-
+"""Need to work on these states, cause these are not optimal!!"""
 class ImageFile:
     def __init__(self) -> None:
         self.file = None
