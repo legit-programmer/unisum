@@ -3,7 +3,7 @@
     <img src="https://img.shields.io/badge/License-MIT-orange">
     <img src="https://img.shields.io/badge/Status-Development-blue">
     <img src="https://img.shields.io/badge/Contributions-Open-green">
-    <a href="https://gitpod.io/#https://github.com/legit-programmer/unisum"><img src="https://img.shields.io/badge/Gitpod-reay--to--code-blue"></a>
+    <a href="https://gitpod.io/#https://github.com/legit-programmer/unisum"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue"></a>
 </h1>
 Unisum is a versatile and powerful universal summarization tool designed to streamline the process of summarizing various types of content. Whether you need to summarize raw text, text documents, images, or PDFs, Unisum has got you covered. Additionally, Unisum incorporates a unique question-answering feature, allowing you to ask specific questions related to the document you uploaded.
 
