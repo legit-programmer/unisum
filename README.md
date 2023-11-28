@@ -103,10 +103,10 @@ Unisum offers a comprehensive set of features that sets it apart from other summ
 #### Currently Supported Documents:
 | Document Type | Summary | Qna |
 | ------------- | ------ | --- |
-| Raw text | ✔️ | ✔️ |
-| Text document | ✔️ | ✔️ |
-| Image | ✔️ | ✔️ |
-| Pdf | ✔️ | ✔️ |
+| Raw text | ☑️ | ☑️ |
+| Text document | ☑️ | ☑️ |
+| Image | ☑️ | ☑️ |
+| Pdf | ☑️ | ☑️ |
 
 
 ## Contributing💖
