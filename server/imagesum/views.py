@@ -20,8 +20,9 @@ def activate(request):
 @api_view(['POST'])
 def activateTheSecond(request):
     data = dict(request.data)
+    file = request.FILES['file']
     print(data['question'])
-    result = answerFromIllustration(data['question'])
+    result = answerFromIllustration(data['question'], file)
     print(result)
     return Response({'output_text': result}, 200)
 
@@ -32,7 +33,7 @@ def upload(request):
     if serializer.is_valid():
         file = request.FILES.get('file')
         image = Image.open(file)
-        ImageFile.file = image
+        
         data = {'text': str(summarizeFromIllustration(image)[
                             0]['generated_text'])}
 

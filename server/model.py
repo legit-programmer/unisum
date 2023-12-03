@@ -26,9 +26,12 @@ SUMMARY_PROMPT = """
 """
 
 """Need to work on these states, cause these are not optimal!!"""
+
+
 class ImageFile:
     def __init__(self) -> None:
         self.file = None
+
 
 def textToDoc(text: str):
     splitter = CharacterTextSplitter()
@@ -37,6 +40,7 @@ def textToDoc(text: str):
     for text in chunks:
         doc.append(Document(page_content=text))
     return doc
+
 
 def getTextFromPdf(file):
     pdfObj = file.open()
@@ -50,12 +54,11 @@ def getTextFromPdf(file):
 
 
 def ocr(file):
-    if platform.uname().system=='Windows':
+    if platform.uname().system == 'Windows':
         pytesseract.pytesseract.tesseract_cmd = os.path.join(
             os.getcwd(), 'tesseract/tesseract.exe')
 
-
-    result:str = pytesseract.image_to_string(file)
+    result: str = pytesseract.image_to_string(file)
     return result
 
 
@@ -92,14 +95,14 @@ def getTextSummarization(TEXT: str):
 
 def getAnswerFromDocument(_question, document):
     qachain = load_qa_chain(GOOGLE_FLAN_MODEL, chain_type="stuff")
-    name:str = document.name
+    name: str = document.name
     text = 'i dont know'
     if name.endswith('.txt'):
         text = getTextFromDotTxt(document)
     elif name.endswith('.pdf'):
         text = getTextFromPdf(document)
     else:
-        
+
         try:
             image = Image.open(document)
         except ValueError:
@@ -120,14 +123,18 @@ def summarizeFromIllustration(file):
     return image_to_text(file)
 
 
-def answerFromIllustration(question):
+def answerFromIllustration(question, file):
     text = question
 
+    try:
+        image = Image.open(file)
+    except ValueError:
+        image = Image.open(file).convert('RGB')
     processor = ViltProcessor.from_pretrained(
         "dandelin/vilt-b32-finetuned-vqa")
     model = ViltForQuestionAnswering.from_pretrained(
         "dandelin/vilt-b32-finetuned-vqa")
-    encoding = processor(ImageFile.file, text, return_tensors="pt")
+    encoding = processor(image, text, return_tensors="pt")
 
     outputs = model(**encoding)
     logits = outputs.logits
@@ -142,6 +149,3 @@ def summarizeFromPdf(file):
     prompt = PromptTemplate(template=SUMMARY_PROMPT, input_variables=['text'])
     chain = load_summarize_chain(FACEBOOK_BART_MODEL, prompt=prompt)
     return [text, chain.run(doc)]
-
-
-    
