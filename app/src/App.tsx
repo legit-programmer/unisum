@@ -11,6 +11,7 @@ import ImagePrompt from "./components/ImagePrompt";
 function App() {
     const [loading, setLoading] = useState(false);
     const [files, setFiles] = useState(null);
+    const [file, setFile] = useState<File | null>(null);
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     const [dragging, setDragging] = useState(false);
@@ -20,8 +21,10 @@ function App() {
     const [questionPath, setQuestionPath] = useState("imagesum/question/");
 
     const client = axios.create({
-        withCredentials:true,
-        baseURL: window.location.href.includes('gitpod')?window.location.href.replace('5173', '8000'):"http://127.0.0.1:8000/",
+        withCredentials: true,
+        baseURL: window.location.href.includes("gitpod")
+            ? window.location.href.replace("5173", "8000")
+            : "http://127.0.0.1:8000/",
     });
 
     const displayInStyle = (data: string) => {
@@ -98,6 +101,7 @@ function App() {
                     {loading === true && <Spinner />}
                     <Filesidebar
                         client={client}
+                        setFile={setFile}
                         files={files}
                         setFiles={setFiles}
                         setLoading={setLoading}
@@ -122,7 +126,11 @@ function App() {
                         setImage={setInputImage}
                         setQuestionPath={setQuestionPath}
                     />
-                    <Chatsidebar client={client} questionPath={questionPath} />
+                    <Chatsidebar
+                        client={client}
+                        questionPath={questionPath}
+                        file={file}
+                    />
                 </div>
             </div>
         </>

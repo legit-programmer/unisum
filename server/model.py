@@ -30,25 +30,23 @@ class ImageFile:
     def __init__(self) -> None:
         self.file = None
 
+def textToDoc(text: str):
+    splitter = CharacterTextSplitter()
+    chunks = splitter.split_text(text)
+    doc = []
+    for text in chunks:
+        doc.append(Document(page_content=text))
+    return doc
 
-class Doc:
-    def __init__(self):
-        self.doc = None
-
-    def textToDoc(self, text: str):
-        splitter = CharacterTextSplitter()
-        chunks = splitter.split_text(text)
-        doc = []
-        for text in chunks:
-            doc.append(Document(page_content=text))
-        self.doc = doc
-        return doc
-
-    def setDoc(self, document):
-        self.doc = document
-
-
-mainDoc = Doc()
+def getTextFromPdf(file):
+    pdfObj = file.open()
+    reader = PyPDF2.PdfReader(pdfObj)
+    pdftext = ''
+    for p in range(len(reader.pages)):
+        page = reader.pages[p]
+        pdftext = pdftext+page.extract_text()
+    file.close()
+    return pdftext
 
 
 def ocr(file):
@@ -57,7 +55,7 @@ def ocr(file):
             os.getcwd(), 'tesseract/tesseract.exe')
 
 
-    result = pytesseract.image_to_string(file)
+    result:str = pytesseract.image_to_string(file)
     return result
 
 
@@ -84,18 +82,32 @@ def getTextFromDotTxt(file):
 
 
 def getTextSummarization(TEXT: str):
-    mainDoc.setDoc(mainDoc.textToDoc(TEXT))
+    doc = textToDoc(TEXT)
     summary_chain = load_summarize_chain(FACEBOOK_BART_MODEL, prompt=PromptTemplate(
         template=SUMMARY_PROMPT, input_variables=['text']))
-    result = summary_chain.run(mainDoc.doc)
+    result = summary_chain.run(doc)
     # result = result.find()
     return [{"summary_text": result}]
 
 
-def getAnswerFromDocument(_question):
+def getAnswerFromDocument(_question, document):
     qachain = load_qa_chain(GOOGLE_FLAN_MODEL, chain_type="stuff")
+    name:str = document.name
+    text = 'i dont know'
+    if name.endswith('.txt'):
+        text = getTextFromDotTxt(document)
+    elif name.endswith('.pdf'):
+        text = getTextFromPdf(document)
+    else:
+        
+        try:
+            image = Image.open(document)
+        except ValueError:
+            image = Image.open(document).convert('RGB')
+        text = ocr(image)
+    doc = textToDoc(text)
     try:
-        return (qachain({"input_documents": mainDoc.doc,
+        return (qachain({"input_documents": doc,
                          "question": _question}, return_only_outputs=True))
     except ValueError:
         return {'output_text': 'Too many tokens😢...'}
@@ -125,16 +137,11 @@ def answerFromIllustration(question):
 
 
 def summarizeFromPdf(file):
-    pdfObj = file.open()
-    reader = PyPDF2.PdfReader(pdfObj)
-    pdftext = ''
-    for p in range(len(reader.pages)):
-        page = reader.pages[p]
-        pdftext = pdftext+page.extract_text()
-    mainDoc.doc = mainDoc.textToDoc(pdftext)
+    text = getTextFromPdf(file)
+    doc = textToDoc(text)
     prompt = PromptTemplate(template=SUMMARY_PROMPT, input_variables=['text'])
     chain = load_summarize_chain(FACEBOOK_BART_MODEL, prompt=prompt)
-    return [pdftext, chain.run(mainDoc.doc)]
+    return [text, chain.run(doc)]
 
 
     

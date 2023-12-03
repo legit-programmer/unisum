@@ -4,9 +4,10 @@ import { AxiosInstance, AxiosResponse } from "axios";
 interface props {
     client: AxiosInstance;
     questionPath: string;
+    file:File | null
 }
 
-const Chatsidebar = ({ client, questionPath }: props) => {
+const Chatsidebar = ({ client, questionPath, file }: props) => {
     const [question, setQuestion] = useState("");
     const [chatData, setChatData] = useState([{ q: "", a: "" }]);
     const [answered, setAnswered] = useState(true);
@@ -38,6 +39,12 @@ const Chatsidebar = ({ client, questionPath }: props) => {
         client
             .post(questionPath, {
                 question: question,
+                file:file,
+            }, 
+            {
+                headers: {
+                    "content-type": "multipart/form-data",
+                }
             })
             .then((res) => {
                 answerUnansweredQuestion(res);

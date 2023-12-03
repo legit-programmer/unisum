@@ -2,6 +2,7 @@ import { AxiosInstance } from "axios";
 
 interface props {
     client: AxiosInstance;
+    setFile: any;
     files: any;
     setFiles: any;
     setLoading: any;
@@ -16,6 +17,7 @@ interface props {
 
 const Filesidebar = ({
     client,
+    setFile,
     files,
     setFiles,
     setLoading,
@@ -30,6 +32,7 @@ const Filesidebar = ({
     const uploadFile = (file: File) => {
         // setLoading(true);
         console.log(file.name);
+        setFile(file);
         if (file.name.includes(".txt")) {
             setLoading(true);
             setQuestionPath("imagesum/question/");
@@ -80,7 +83,14 @@ const Filesidebar = ({
                         setLoading(false);
                         displayInStyle(res.data[1]);
                     });
-            } 
+            } else {
+                setLoading(false);
+                setImage(null);
+                setInput("NULL");
+                displayInStyle(
+                    "Unsupported Document, only pdfs, text files and image files(webp, png, jpg, jpeg) are accepted"
+                );
+            }
         }
     };
 
