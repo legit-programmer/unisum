@@ -7,7 +7,7 @@ const Navbar = () => {
             <h1>Unisum.</h1>
         </div>
         <div className="absolute right-[70px] top-3 w-10 cursor-pointer hover:drop-shadow-lg"><Switcher/></div>
-        <img onClick={()=>window.open('https://github.com/legit-programmer/unisum/')} className="transition-all absolute right-5 w-10 cursor-pointer hover:w-12 hover:drop-shadow-lg" src="https://i.ibb.co/n7DG5fj/icons8-github-60.png" alt="" />
+        <img onClick={()=>window.open('https://github.com/legit-programmer/unisum/')} className="transition-all absolute right-5 w-10 cursor-pointer hover:w-12 hover:drop-shadow-lg rounded-full opacity-75" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="" />
         
     </div>
   )
