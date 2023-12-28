@@ -1,5 +1,5 @@
 <h1 align="center">
-    Unisum - Universal Summarization Tool<br>
+    Unisum - A Universal Summarization Tool<br>
     <img src="https://img.shields.io/badge/License-MIT-orange">
     <img src="https://img.shields.io/badge/Status-Development-blue">
     <img src="https://img.shields.io/badge/Contributions-Open-green">
